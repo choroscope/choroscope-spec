@@ -11,7 +11,6 @@ type Config = {
   "display_name": string,
 
   // Enable visualization of raster data? Enable visualization of aggregate data?
-  // NB: `"raster": false` is NOT YET SUPPORTED
   "data_format"?: {
     "raster": boolean,    // default: true
     "aggregate": boolean, // default: true
@@ -25,8 +24,10 @@ type Config = {
    * contains a "no data" value for a given pixel, the corresponding pixel in the output raster will
    * also have a "no data" value. Otherwise it will have the value from the corresponding pixel in
    * the data file.
+   *
+   * This property is required if data_format.raster is `true`.
    */
-  "filepath_raster_mask": string,
+  "filepath_raster_mask"?: string,
 
   // NOT YET SUPPORTED
   // numeric value in TIFF files that indicates the absence of data for a given pixel
