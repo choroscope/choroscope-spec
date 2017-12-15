@@ -196,7 +196,7 @@ type Schema = {
    * selected options: { "age": "children", "year": 2010 }
    * rendered title: "Mortality for children in 2010"
    */
-  "ui_template_title": string,
+  "ui_title_template": string,
 
   // `InfoDisplay` configurations (defined below) for this schema
   "info_displays?": InfoDisplay[],
