@@ -16,6 +16,9 @@ type Config = {
     "aggregate": boolean, // default: true
   },
 
+  // the URL from which a user may download the source data files
+  "download_url"?: string,
+
   /**
    * relative path to the TIFF file to be applied as mask to each TIFF data file
    * example: "data/raster/mask.tiff"
