@@ -38,10 +38,6 @@ type Config = {
 
   // configuration pertaining to shapefiles used to draw political units on the map
   "shapefiles": {
-    // relative paths to shapefiles containing geographic features at each admin level
-    "admin0": string,
-    "admin1": string,
-    "admin2": string,
     /**
      * whitelist of location_ids used to filter the shapefiles
      * We include only these admin0 locations and only admin1 and admin2 locations that are their
