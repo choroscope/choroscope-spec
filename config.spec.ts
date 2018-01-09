@@ -18,6 +18,8 @@ type Config = {
     // Low-level representation of data values. This MUST correspond to the pixel type of the raster
     // files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
     "data_type"?: DataType, // default: "Float64"
+    // numeric value in TIFF files that indicates the absence of data for a given pixel
+    "no_data_value"?: number, // default: -1.7e+308
   },
 
   // the URL from which a user may download the source data files
@@ -35,10 +37,6 @@ type Config = {
    * This property is required if data_format.raster is `true`.
    */
   "filepath_raster_mask"?: string,
-
-  // NOT YET SUPPORTED
-  // numeric value in TIFF files that indicates the absence of data for a given pixel
-  "no_data_value"?: number, // default: -1.7e+308
 
   // configuration pertaining to shapefiles used to draw political units on the map
   "shapefiles": {
