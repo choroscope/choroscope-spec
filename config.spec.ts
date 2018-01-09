@@ -85,13 +85,13 @@ type DataType =
   // Int32     | 32BSI              | integer
   | 'Int32'
 
-  // UInt32    | 32BUI              | real
+  // UInt32    | 32BUI              | integer
   | 'UInt32'
 
   // Float32   | 32BF               | real
   | 'Float32'
 
-  // Float64   | 64BF               | double
+  // Float64   | 64BF               | double precision
   | 'Float64'
   ;
 
