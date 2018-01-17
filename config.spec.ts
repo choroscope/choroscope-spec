@@ -12,9 +12,9 @@ type Config = {
 
   "data_format"?: {
     // Enable visualization of raster data?
-    "raster": boolean,    // default: true
+    "raster"?: boolean,    // default: true
     // Enable visualization of aggregate data?
-    "aggregate": boolean, // default: true
+    "aggregate"?: boolean, // default: true
     // Low-level representation of data values. This MUST correspond to the pixel type of the raster
     // files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
     "data_type"?: DataType, // default: "Float64"
