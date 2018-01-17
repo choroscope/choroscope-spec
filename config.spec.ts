@@ -10,10 +10,16 @@ type Config = {
   // the name of the theme as displayed to the user
   "display_name": string,
 
-  // Enable visualization of raster data? Enable visualization of aggregate data?
   "data_format"?: {
+    // Enable visualization of raster data?
     "raster": boolean,    // default: true
+    // Enable visualization of aggregate data?
     "aggregate": boolean, // default: true
+    // Low-level representation of data values. This MUST correspond to the pixel type of the raster
+    // files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
+    "data_type"?: DataType, // default: "Float64"
+    // numeric value in TIFF files that indicates the absence of data for a given pixel
+    "no_data_value"?: number, // default: -1.7e+308
   },
 
   // the URL from which a user may download the source data files
@@ -31,10 +37,6 @@ type Config = {
    * This property is required if data_format.raster is `true`.
    */
   "filepath_raster_mask"?: string,
-
-  // NOT YET SUPPORTED
-  // numeric value in TIFF files that indicates the absence of data for a given pixel
-  "no_data_value"?: number, // default: -1.7e+308
 
   // configuration pertaining to shapefiles used to draw political units on the map
   "shapefiles": {
@@ -63,6 +65,35 @@ type Config = {
   // array of color scales used to colorize the data displayed on the map (defined below)
   "color_scales": ColorScale[],
 };
+
+/**
+ * corresponds to the identically-named pixel types in GDAL
+ * See the table below for correspondence with Postgres/PostGIS types.
+ */
+type DataType =
+  // GDAL type | PostGIS pixel type | Postgres type for aggregate data
+  // -----------------------------------------------------------------
+  // Byte      | 8BSI               | smallint
+  | 'Byte'
+
+  // Int16     | 16BSI              | smallint
+  | 'Int16'
+
+  // UInt16    | 16BUI              | smallint
+  | 'UInt16'
+
+  // Int32     | 32BSI              | integer
+  | 'Int32'
+
+  // UInt32    | 32BUI              | integer
+  | 'UInt32'
+
+  // Float32   | 32BF               | real
+  | 'Float32'
+
+  // Float64   | 64BF               | double precision
+  | 'Float64'
+  ;
 
 /**
  * data dimension defined within the "dimensions" property of `Config`, above
