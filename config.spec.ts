@@ -74,25 +74,25 @@ type DataType =
   // GDAL type | PostGIS pixel type | Postgres type for aggregate data
   // -----------------------------------------------------------------
   // Byte      | 8BSI               | smallint
-  | 'Byte'
+  | "Byte"
 
   // Int16     | 16BSI              | smallint
-  | 'Int16'
+  | "Int16"
 
   // UInt16    | 16BUI              | smallint
-  | 'UInt16'
+  | "UInt16"
 
   // Int32     | 32BSI              | integer
-  | 'Int32'
+  | "Int32"
 
   // UInt32    | 32BUI              | integer
-  | 'UInt32'
+  | "UInt32"
 
   // Float32   | 32BF               | real
-  | 'Float32'
+  | "Float32"
 
   // Float64   | 64BF               | double precision
-  | 'Float64'
+  | "Float64"
   ;
 
 /**
