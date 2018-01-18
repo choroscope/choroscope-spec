@@ -116,7 +116,7 @@ type Dimension = {
   "options": Option[],
 
   // option to display by default when the tool starts
-  "default_option"?: string, // default: the first element in the "options" array
+  "default_option"?: string | number, // default: the first element in the "options" array
 
   // type of control widget the user will use to set the dimension
   // default: "select"
@@ -273,21 +273,20 @@ type LineConfig = {
   "expand_dimension?": string,
 
   /**
-   * "name" property of the option from the "expand_dimension" for which the application should
-   * render a line
+   * option from the "expand_dimension" for which the application should render a line
    */
-  "line?": string,
+  "line?": string | number,
 
   /**
-   * "name" properties of the options from the "expand_dimension" for which the application should
-   * render a shaded area. To be more precise, we draw two lines, one for "upper" and one for
-   * "lower", and we shade the area in between. This is useful for showing a range or interval,
-   * like a statistical uncertainty interval.
+   * options from the "expand_dimension" for which the application should render a shaded area.
+   * To be more precise, we draw two lines, one for "upper" and one for "lower", and we shade the
+   * area in between. This is useful for showing a range or interval, like a statistical uncertainty
+   * interval.
    * NB: It is an error to define only one of these properties; if one is specified, both must be
    * specified.
    */
-  "upper?": string,
-  "lower?": string,
+  "upper?": string | number,
+  "lower?": string | number,
 };
 
 /**
