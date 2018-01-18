@@ -230,7 +230,7 @@ type Schema = {
   "ui_title_template": string,
 
   // `InfoDisplay` configurations (defined below) for this schema
-  "info_displays?": InfoDisplay[],
+  "info_displays"?: InfoDisplay[],
 };
 
 /**
@@ -270,12 +270,12 @@ type LineConfig = {
    * show the value not just for the currently selected option but for multiple options of the given
    * dimension (references the dimension's "name" property)
    */
-  "expand_dimension?": string,
+  "expand_dimension"?: string,
 
   /**
    * option from the "expand_dimension" for which the application should render a line
    */
-  "line?": string | number,
+  "line"?: string | number,
 
   /**
    * options from the "expand_dimension" for which the application should render a shaded area.
@@ -285,8 +285,8 @@ type LineConfig = {
    * NB: It is an error to define only one of these properties; if one is specified, both must be
    * specified.
    */
-  "upper?": string | number,
-  "lower?": string | number,
+  "upper"?: string | number,
+  "lower"?: string | number,
 };
 
 /**
@@ -302,10 +302,10 @@ type ValuesDisplay = {
    * show the value not just for the currently selected option but for ALL options of the given
    * dimension (references the dimension's "name" property)
    */
-  "expand_dimension?": string,
+  "expand_dimension"?: string,
 
   // round to this many places after the decimal point
-  "precision?": number, // default: no rounding
+  "precision"?: number, // default: no rounding
 };
 
 /**
@@ -333,7 +333,7 @@ type ColorScale = {
   // (in the range 0.0 - 1.0) of a reference extent. The reference extent corresponds to the
   // extent of data values (min. to max.) of the currently selected location for the currently
   // selected data dimensions.
-  "dynamic?": boolean, // default: false
+  "dynamic"?: boolean, // default: false
 
   // array of `ColorStop` objects that comprise the scale (defined below), ordered from smallest to
   // largest `offset` values.
