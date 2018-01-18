@@ -352,7 +352,7 @@ type ColorStop = {
    * and d3-scale (https://github.com/d3/d3-scale#continuous_interpolate)
    * e.g.: hex codes, rgb, rgba, hsl, hsla, and HTML color names
    */
-  color: string,
+  "color": string,
 
   /**
    * value at which the specified color will be applied
@@ -360,10 +360,10 @@ type ColorStop = {
    * to a literal data value.
    */
 
-  offset: number,
+  "offset": number,
 
   // optional label to show for this color stop on the color scale legend
-  label?: string,
+  "label"?: string,
 };
 
 /**
