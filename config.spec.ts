@@ -172,7 +172,7 @@ type Schema = {
   "name": string,
 
   // a `Conditions` object (defined below) specifying when this schema will be active
-  // If none is given, the schema will always be active.
+  // If no conditions are specified, the schema will always be active.
   "conditions"?: Conditions,
 
   /**
@@ -322,7 +322,7 @@ type ValuesDisplay = {
 type ColorScale = {
 
   // a `Conditions` object (defined below) specifying when this color scale will be active
-  // If none is given, the color scale will always be active.
+  // If no conditions are specified, the color scale will always be active.
   "conditions"?: Conditions,
 
   // text to display on the color scale legend when this color scale is active
