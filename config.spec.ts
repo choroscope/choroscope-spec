@@ -267,8 +267,9 @@ type LineChart = {
 type LineConfig = {
 
   /**
-   * show the value not just for the currently selected option but for multiple options of the given
-   * dimension (references the dimension's "name" property)
+   * Show the value not just for the currently selected option but for multiple options of the given
+   * dimension (references the dimension's "name" property).
+   * NB: This property must be defined if properties "line", "upper", or "lower" are defined.
    */
   "expand_dimension"?: string,
 
