@@ -12,9 +12,9 @@ type Config = {
 
   "data_format"?: {
     // Enable visualization of raster data?
-    "raster": boolean,    // default: true
+    "raster"?: boolean,    // default: true
     // Enable visualization of aggregate data?
-    "aggregate": boolean, // default: true
+    "aggregate"?: boolean, // default: true
     // Low-level representation of data values. This MUST correspond to the pixel type of the raster
     // files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
     "data_type"?: DataType, // default: "Float64"
@@ -74,25 +74,25 @@ type DataType =
   // GDAL type | PostGIS pixel type | Postgres type for aggregate data
   // -----------------------------------------------------------------
   // Byte      | 8BSI               | smallint
-  | 'Byte'
+  | "Byte"
 
   // Int16     | 16BSI              | smallint
-  | 'Int16'
+  | "Int16"
 
   // UInt16    | 16BUI              | smallint
-  | 'UInt16'
+  | "UInt16"
 
   // Int32     | 32BSI              | integer
-  | 'Int32'
+  | "Int32"
 
   // UInt32    | 32BUI              | integer
-  | 'UInt32'
+  | "UInt32"
 
   // Float32   | 32BF               | real
-  | 'Float32'
+  | "Float32"
 
   // Float64   | 64BF               | double precision
-  | 'Float64'
+  | "Float64"
   ;
 
 /**
@@ -116,7 +116,7 @@ type Dimension = {
   "options": Option[],
 
   // option to display by default when the tool starts
-  "default_option"?: string, // default: the first element in the "options" array
+  "default_option"?: string | number, // default: the first element in the "options" array
 
   // type of control widget the user will use to set the dimension
   // default: "select"
@@ -172,7 +172,8 @@ type Schema = {
   "name": string,
 
   // a `Conditions` object (defined below) specifying when this schema will be active
-  "conditions": Conditions,
+  // If no conditions are specified, the schema will always be active.
+  "conditions"?: Conditions,
 
   /**
    * data dimensions defined for this schema
@@ -229,7 +230,7 @@ type Schema = {
   "ui_title_template": string,
 
   // `InfoDisplay` configurations (defined below) for this schema
-  "info_displays?": InfoDisplay[],
+  "info_displays"?: InfoDisplay[],
 };
 
 /**
@@ -266,27 +267,27 @@ type LineChart = {
 type LineConfig = {
 
   /**
-   * show the value not just for the currently selected option but for multiple options of the given
-   * dimension (references the dimension's "name" property)
+   * Show the value not just for the currently selected option but for multiple options of the given
+   * dimension (references the dimension's "name" property).
+   * NB: This property must be defined if properties "line", "upper", or "lower" are defined.
    */
-  "expand_dimension?": string,
+  "expand_dimension"?: string,
 
   /**
-   * "name" property of the option from the "expand_dimension" for which the application should
-   * render a line
+   * option from the "expand_dimension" for which the application should render a line
    */
-  "line?": string,
+  "line"?: string | number,
 
   /**
-   * "name" properties of the options from the "expand_dimension" for which the application should
-   * render a shaded area. To be more precise, we draw two lines, one for "upper" and one for
-   * "lower", and we shade the area in between. This is useful for showing a range or interval,
-   * like a statistical uncertainty interval.
+   * options from the "expand_dimension" for which the application should render a shaded area.
+   * To be more precise, we draw two lines, one for "upper" and one for "lower", and we shade the
+   * area in between. This is useful for showing a range or interval, like a statistical uncertainty
+   * interval.
    * NB: It is an error to define only one of these properties; if one is specified, both must be
    * specified.
    */
-  "upper?": string,
-  "lower?": string,
+  "upper"?: string | number,
+  "lower"?: string | number,
 };
 
 /**
@@ -302,10 +303,10 @@ type ValuesDisplay = {
    * show the value not just for the currently selected option but for ALL options of the given
    * dimension (references the dimension's "name" property)
    */
-  "expand_dimension?": string,
+  "expand_dimension"?: string,
 
   // round to this many places after the decimal point
-  "precision?": number, // default: no rounding
+  "precision"?: number, // default: no rounding
 };
 
 /**
@@ -322,7 +323,8 @@ type ValuesDisplay = {
 type ColorScale = {
 
   // a `Conditions` object (defined below) specifying when this color scale will be active
-  "conditions": Conditions,
+  // If no conditions are specified, the color scale will always be active.
+  "conditions"?: Conditions,
 
   // text to display on the color scale legend when this color scale is active
   "legend_label": string,
@@ -332,7 +334,7 @@ type ColorScale = {
   // (in the range 0.0 - 1.0) of a reference extent. The reference extent corresponds to the
   // extent of data values (min. to max.) of the currently selected location for the currently
   // selected data dimensions.
-  "dynamic?": boolean, // default: false
+  "dynamic"?: boolean, // default: false
 
   // array of `ColorStop` objects that comprise the scale (defined below), ordered from smallest to
   // largest `offset` values.
@@ -351,7 +353,7 @@ type ColorStop = {
    * and d3-scale (https://github.com/d3/d3-scale#continuous_interpolate)
    * e.g.: hex codes, rgb, rgba, hsl, hsla, and HTML color names
    */
-  color: string,
+  "color": string,
 
   /**
    * value at which the specified color will be applied
@@ -359,10 +361,10 @@ type ColorStop = {
    * to a literal data value.
    */
 
-  offset: number,
+  "offset": number,
 
   // optional label to show for this color stop on the color scale legend
-  label?: string,
+  "label"?: string,
 };
 
 /**
