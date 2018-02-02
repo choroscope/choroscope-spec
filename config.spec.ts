@@ -339,6 +339,10 @@ type ColorScale = {
   // array of `ColorStop` objects that comprise the scale (defined below), ordered from smallest to
   // largest `offset` values.
   "scale": ColorStop[],
+
+  // array of `ColorStop` objects that comprise individual values, ordered from smallest to
+  // largest `offset` values. Values must be larger than those of the "scale" values.
+  "sentinel_values"?: ColorStop[],
 };
 
 /**
