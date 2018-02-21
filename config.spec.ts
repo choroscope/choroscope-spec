@@ -374,7 +374,7 @@ type ColorStop = {
 interface SentinelValue extends ColorStop {
   // Label to show in relation to the color in the SentinelValue Legend.
   "label": string;
-};
+}
 
 /**
  * mapping from dimension "name" to an array of option "name"s
