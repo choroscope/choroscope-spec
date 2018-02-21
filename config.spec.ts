@@ -340,8 +340,8 @@ type ColorScale = {
   // largest `offset` values.
   "scale": ColorStop[],
 
-  // array of `SentinelValue` objects that comprise individual non-numeric values depicted in their
-  // `label` whose associated `offset` values should be ordered from smallest to largest.
+  // array of `SentinelValue` objects that comprise individual non-numeric values depicted by their
+  // associated `label`.
   "sentinel_values"?: SentinelValue[],
 };
 
