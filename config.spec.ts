@@ -340,9 +340,9 @@ type ColorScale = {
   // largest `offset` values.
   "scale": ColorStop[],
 
-  // array of `ColorStop` objects that comprise individual values, ordered from smallest to
-  // largest `offset` values. Values must be larger than those of the "scale" values.
-  "sentinel_values"?: ColorStop[],
+  // array of `SentinelValue` objects that comprise individual non-numeric values depicted by their
+  // associated `label`.
+  "sentinel_values"?: SentinelValue[],
 };
 
 /**
@@ -370,6 +370,11 @@ type ColorStop = {
   // optional label to show for this color stop on the color scale legend
   "label"?: string,
 };
+
+interface SentinelValue extends ColorStop {
+  // Label to show in relation to the color in the SentinelValue Legend.
+  "label": string;
+}
 
 /**
  * mapping from dimension "name" to an array of option "name"s
