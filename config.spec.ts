@@ -135,6 +135,9 @@ type Dimension = {
    * sequence of state changes in which we step through the array of options for this dimension.
    */
   "playable"?: boolean, // default: false
+
+  // tooltip text to explain the meaning of the dimension to the user
+  "help_text"?: string,
 };
 
 /**
