@@ -4,7 +4,9 @@
   "description": "This repository contains the specifications for the configuration language shared by `geospatial-app` and `geospatial-util`.",
   "main": "config.spec.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typecheck": "tsc",
+    "lint": "tslint config.spec.d.ts",
+    "test": "npm run typecheck && npm run lint"
   },
   "repository": {
     "type": "git",
