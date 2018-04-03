@@ -1,7 +1,7 @@
 /**
  * the JSON configuration object as a whole
  */
-export type Config = {
+export interface Config {
 
   // the name used internally as a unique identifier for the current theme;
   // must be unique; should ideally be as short as possible without being cryptic
@@ -10,17 +10,7 @@ export type Config = {
   // the name of the theme as displayed to the user
   "display_name": string,
 
-  "data_format"?: {
-    // Enable visualization of raster data?
-    "raster"?: boolean,    // default: true
-    // Enable visualization of aggregate data?
-    "aggregate"?: boolean, // default: true
-    // Low-level representation of data values. This MUST correspond to the pixel type of the raster
-    // files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
-    "data_type"?: DataType, // default: "Float64"
-    // numeric value in TIFF files that indicates the absence of data for a given pixel
-    "no_data_value"?: number, // default: -1.7e+308
-  },
+  "data_format"?: DataFormat,
 
   // the URL from which a user may download the source data files
   "download_url"?: string,
@@ -38,15 +28,7 @@ export type Config = {
    */
   "filepath_raster_mask"?: string,
 
-  // configuration pertaining to shapefiles used to draw political units on the map
-  "shapefiles": {
-    /**
-     * whitelist of location_ids used to filter the shapefiles
-     * We include only these admin0 locations and only admin1 and admin2 locations that are their
-     * descendants.
-     */
-    "admin0_locations": number[],
-  },
+  "shapefiles": Shapefiles,
 
   // tile server URL for the basemap that will be displayed UNDER the data layer
   // default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
@@ -64,7 +46,29 @@ export type Config = {
 
   // array of color scales used to colorize the data displayed on the map (defined below)
   "color_scales": ColorScale[],
-};
+}
+
+export interface DataFormat {
+  // Enable visualization of raster data?
+  "raster"?: boolean;    // default: true
+  // Enable visualization of aggregate data?
+  "aggregate"?: boolean; // default: true
+  // Low-level representation of data values. This MUST correspond to the pixel type of the raster
+  // files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
+  "data_type"?: DataType; // default: "Float64"
+  // numeric value in TIFF files that indicates the absence of data for a given pixel
+  "no_data_value"?: number; // default: -1.7e+308
+}
+
+// configuration pertaining to shapefiles used to draw political units on the map
+export interface Shapefiles {
+  /**
+   * whitelist of location_ids used to filter the shapefiles
+   * We include only these admin0 locations and only admin1 and admin2 locations that are their
+   * descendants.
+   */
+  "admin0_locations": number[],
+}
 
 /**
  * corresponds to the identically-named pixel types in GDAL
@@ -103,7 +107,7 @@ export type DataType =
  * dimensions separately from schemas so that the same dimension may be used in multiple schemas
  * without having to be defined multiple times.
  */
-export type Dimension = {
+export interface Dimension {
 
   // the name used internally as a unique identifier for the dimension;
   // must be unique; should ideally be as short as possible without being cryptic
@@ -138,7 +142,7 @@ export type Dimension = {
 
   // tooltip text to explain the meaning of the dimension to the user
   "help_text"?: string,
-};
+}
 
 /**
  * option defined within the "options" property of a `Dimension` object, above
@@ -168,7 +172,7 @@ export type Option =
  * selectors. That is, when a user changes the value of such a dimension, he/she may change the
  * active schema. In the database, each schema is represented by a separate set of data tables.
  */
-export type Schema = {
+export interface Schema {
 
   // unique name for the schema, used internally;
   // should ideally be as short as possible without being cryptic
@@ -234,7 +238,7 @@ export type Schema = {
 
   // `InfoDisplay` configurations (defined below) for this schema
   "info_displays"?: InfoDisplay[],
-};
+}
 
 /**
  * configuration object for an info display component
@@ -252,7 +256,7 @@ export type InfoDisplay =
 /**
  * configuration object for the LineChart display component
  */
-export type LineChart = {
+export interface LineChart {
   "type": "line_chart",
 
   // dimension to show as domain of chart
@@ -262,12 +266,12 @@ export type LineChart = {
   // If none specified, we show a line representing the values for the current data dimension
   // selections for each option of the "domain" dimension.
   "lines"?: LineConfig[],
-};
+}
 
 /**
  * configuration object for a line and/or area to display on a line chart
  */
-export type LineConfig = {
+export interface LineConfig {
 
   /**
    * Show the value not just for the currently selected option but for multiple options of the given
@@ -290,7 +294,7 @@ export type LineConfig = {
    */
   "upper"?: string | number,
   "lower"?: string | number,
-};
+}
 
 /**
  * configuration object for the Values display component
@@ -298,7 +302,7 @@ export type LineConfig = {
  * Values is a very simple component. It just displays numeric data values for the currently
  * selected pixel/feature and the corresponding color based on the current `ColorScale`.
  */
-export type ValuesDisplay = {
+export interface ValuesDisplay {
   "type": "values",
 
   /**
@@ -309,7 +313,7 @@ export type ValuesDisplay = {
 
   // round to this many places after the decimal point
   "precision"?: number, // default: no rounding
-};
+}
 
 /**
  * color scale defined within the "color_scales" property of `Config`, above
@@ -322,7 +326,7 @@ export type ValuesDisplay = {
  * As with schemas, one (and only one) color scale may be active at a given time. We specify when a
  * color scale is active with the "conditions" property.
  */
-export type ColorScale = {
+export interface ColorScale {
 
   // a `Conditions` object (defined below) specifying when this color scale will be active
   // If no conditions are specified, the color scale will always be active.
@@ -345,13 +349,13 @@ export type ColorScale = {
   // array of `SentinelValue` objects that comprise individual non-numeric values depicted by their
   // associated `label`.
   "sentinel_values"?: SentinelValue[],
-};
+}
 
 /**
  * object defined within the "scale" property of `ColorScale` (above) describing how to colorize a
  * specified data value
  */
-export type ColorStop = {
+export interface ColorStop {
 
   /**
    * string representation of a color, in a format compatible with both
@@ -371,7 +375,7 @@ export type ColorStop = {
 
   // optional label to show for this color stop on the color scale legend
   "label"?: string,
-};
+}
 
 export interface SentinelValue extends ColorStop {
   // Label to show in relation to the color in the SentinelValue Legend.
@@ -395,6 +399,6 @@ export interface SentinelValue extends ColorStop {
  * ACTIVE if "data-shape" is "data-shape-1"
  * INACTIVE otherwise
  */
-export type Conditions = {
+export interface Conditions {
   [dimensionName: string]: Array<string | number>,
-};
+}
