@@ -1,7 +1,7 @@
 /**
  * the JSON configuration object as a whole
  */
-type Config = {
+export type Config = {
 
   // the name used internally as a unique identifier for the current theme;
   // must be unique; should ideally be as short as possible without being cryptic
@@ -70,7 +70,7 @@ type Config = {
  * corresponds to the identically-named pixel types in GDAL
  * See the table below for correspondence with Postgres/PostGIS types.
  */
-type DataType =
+export type DataType =
   // GDAL type | PostGIS pixel type | Postgres type for aggregate data
   // -----------------------------------------------------------------
   // Byte      | 8BSI               | smallint
@@ -103,7 +103,7 @@ type DataType =
  * dimensions separately from schemas so that the same dimension may be used in multiple schemas
  * without having to be defined multiple times.
  */
-type Dimension = {
+export type Dimension = {
 
   // the name used internally as a unique identifier for the dimension;
   // must be unique; should ideally be as short as possible without being cryptic
@@ -150,7 +150,7 @@ type Dimension = {
  * If an option is specified simply as a number or string, that value will be used as both "name"
  * and "display_name".
  */
-type Option =
+export type Option =
   | string
   | number
   | {
@@ -168,7 +168,7 @@ type Option =
  * selectors. That is, when a user changes the value of such a dimension, he/she may change the
  * active schema. In the database, each schema is represented by a separate set of data tables.
  */
-type Schema = {
+export type Schema = {
 
   // unique name for the schema, used internally;
   // should ideally be as short as possible without being cryptic
@@ -244,7 +244,7 @@ type Schema = {
  * (in "aggregate" mode). This Info Box can render one or more display components, defined by the
  * configuration object(s) provided.
  */
-type InfoDisplay =
+export type InfoDisplay =
   | LineChart
   | ValuesDisplay
   ;
@@ -252,7 +252,7 @@ type InfoDisplay =
 /**
  * configuration object for the LineChart display component
  */
-type LineChart = {
+export type LineChart = {
   "type": "line_chart",
 
   // dimension to show as domain of chart
@@ -267,7 +267,7 @@ type LineChart = {
 /**
  * configuration object for a line and/or area to display on a line chart
  */
-type LineConfig = {
+export type LineConfig = {
 
   /**
    * Show the value not just for the currently selected option but for multiple options of the given
@@ -298,7 +298,7 @@ type LineConfig = {
  * Values is a very simple component. It just displays numeric data values for the currently
  * selected pixel/feature and the corresponding color based on the current `ColorScale`.
  */
-type ValuesDisplay = {
+export type ValuesDisplay = {
   "type": "values",
 
   /**
@@ -322,7 +322,7 @@ type ValuesDisplay = {
  * As with schemas, one (and only one) color scale may be active at a given time. We specify when a
  * color scale is active with the "conditions" property.
  */
-type ColorScale = {
+export type ColorScale = {
 
   // a `Conditions` object (defined below) specifying when this color scale will be active
   // If no conditions are specified, the color scale will always be active.
@@ -351,7 +351,7 @@ type ColorScale = {
  * object defined within the "scale" property of `ColorScale` (above) describing how to colorize a
  * specified data value
  */
-type ColorStop = {
+export type ColorStop = {
 
   /**
    * string representation of a color, in a format compatible with both
@@ -373,7 +373,7 @@ type ColorStop = {
   "label"?: string,
 };
 
-interface SentinelValue extends ColorStop {
+export interface SentinelValue extends ColorStop {
   // Label to show in relation to the color in the SentinelValue Legend.
   "label": string;
 }
@@ -395,6 +395,6 @@ interface SentinelValue extends ColorStop {
  * ACTIVE if "data-shape" is "data-shape-1"
  * INACTIVE otherwise
  */
-type Conditions = {
+export type Conditions = {
   [dimensionName: string]: Array<string | number>,
 };
