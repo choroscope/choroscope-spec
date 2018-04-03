@@ -1,0 +1,19 @@
+{
+  "name": "specification",
+  "version": "0.1.0",
+  "description": "This repository contains the specifications for the configuration language shared by `geospatial-app` and `geospatial-util`.",
+  "main": "config.spec.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@stash.ihme.washington.edu:7999/geov/specification.git"
+  },
+  "author": "David Schneider <davschne@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "tslint": "~5.9",
+    "typescript": "~2.8"
+  }
+}
