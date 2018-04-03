@@ -5,15 +5,15 @@ export interface Config {
 
   // the name used internally as a unique identifier for the current theme;
   // must be unique; should ideally be as short as possible without being cryptic
-  "name": string,
+  "name": string;
 
   // the name of the theme as displayed to the user
-  "display_name": string,
+  "display_name": string;
 
-  "data_format"?: DataFormat,
+  "data_format"?: DataFormat;
 
   // the URL from which a user may download the source data files
-  "download_url"?: string,
+  "download_url"?: string;
 
   /**
    * relative path to the TIFF file to be applied as mask to each TIFF data file
@@ -26,26 +26,26 @@ export interface Config {
    *
    * This property is required if data_format.raster is `true`.
    */
-  "filepath_raster_mask"?: string,
+  "filepath_raster_mask"?: string;
 
-  "shapefiles": Shapefiles,
+  "shapefiles": Shapefiles;
 
   // tile server URL for the basemap that will be displayed UNDER the data layer
   // default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
-  "basemap_url"?: string,
+  "basemap_url"?: string;
 
   // tile server URL for the basemap that will be displayed ON TOP OF the data layer (usu. labels)
   // default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
-  "basemap_labels_url"?: string,
+  "basemap_labels_url"?: string;
 
   // array of data dimensions used in the visualization (defined below)
-  "dimensions": Dimension[],
+  "dimensions": Dimension[];
 
   // array of distinct data shapes used in the visualization (defined below)
-  "schemas": Schema[],
+  "schemas": Schema[];
 
   // array of color scales used to colorize the data displayed on the map (defined below)
-  "color_scales": ColorScale[],
+  "color_scales": ColorScale[];
 }
 
 export interface DataFormat {
@@ -67,7 +67,7 @@ export interface Shapefiles {
    * We include only these admin0 locations and only admin1 and admin2 locations that are their
    * descendants.
    */
-  "admin0_locations": number[],
+  "admin0_locations": number[];
 }
 
 /**
@@ -111,16 +111,16 @@ export interface Dimension {
 
   // the name used internally as a unique identifier for the dimension;
   // must be unique; should ideally be as short as possible without being cryptic
-  "name": string,
+  "name": string;
 
   // the name of the dimension as displayed to the user
-  "display_name": string,
+  "display_name": string;
 
   // array of possible values for the dimension (defined below)
-  "options": Option[],
+  "options": Option[];
 
   // option to display by default when the tool starts
-  "default_option"?: string | number, // default: the first element in the "options" array
+  "default_option"?: string | number; // default: the first element in the "options" array
 
   // type of control widget the user will use to set the dimension
   // default: "select"
@@ -131,17 +131,17 @@ export interface Dimension {
     // a draggable horizontal slider
     | "slider"
     // a group of buttons, one for each option; one and only one button may be selected at a time
-    | "buttonset",
+    | "buttonset";
 
   /**
    * Enable the playback feature for this dimension?
    * If enabled, we render a play button next to the dimension control. Pressing play begins a timed
    * sequence of state changes in which we step through the array of options for this dimension.
    */
-  "playable"?: boolean, // default: false
+  "playable"?: boolean; // default: false
 
   // tooltip text to explain the meaning of the dimension to the user
-  "help_text"?: string,
+  "help_text"?: string;
 }
 
 /**
@@ -176,11 +176,11 @@ export interface Schema {
 
   // unique name for the schema, used internally;
   // should ideally be as short as possible without being cryptic
-  "name": string,
+  "name": string;
 
   // a `Conditions` object (defined below) specifying when this schema will be active
   // If no conditions are specified, the schema will always be active.
-  "conditions"?: Conditions,
+  "conditions"?: Conditions;
 
   /**
    * data dimensions defined for this schema
@@ -188,7 +188,7 @@ export interface Schema {
    * an array of strings referencing the "name" property of `Dimension` objects defined in the
    * "dimensions" property of the `Config` object
    */
-  "dimensions": string[],
+  "dimensions": string[];
 
   /**
    * template representing a relative path to the raster files (TIFF) for this schema
@@ -212,11 +212,11 @@ export interface Schema {
    * - data/raster/opt-1b_opt-2a.tif
    * - data/raster/opt-1b_opt-2b.tif
    */
-  "filepath_template_raster"?: string,
+  "filepath_template_raster"?: string;
 
   // template representing a relative path to the aggregate data files (CSV) for this schema;
   // the same guidelines apply as for "filepath_template_raster" above
-  "filepath_template_aggregate"?: string,
+  "filepath_template_aggregate"?: string;
 
   /**
    * template representing the title text to display to the user when this schema is active
@@ -234,10 +234,10 @@ export interface Schema {
    * selected options: { "age": "children", "year": 2010 }
    * rendered title: "Mortality for children in 2010"
    */
-  "ui_title_template": string,
+  "ui_title_template": string;
 
   // `InfoDisplay` configurations (defined below) for this schema
-  "info_displays"?: InfoDisplay[],
+  "info_displays"?: InfoDisplay[];
 }
 
 /**
@@ -257,15 +257,15 @@ export type InfoDisplay =
  * configuration object for the LineChart display component
  */
 export interface LineChart {
-  "type": "line_chart",
+  "type": "line_chart";
 
   // dimension to show as domain of chart
-  "domain": string,
+  "domain": string;
 
   // configuration for one or more lines (or areas) to display on the chart, defined below
   // If none specified, we show a line representing the values for the current data dimension
   // selections for each option of the "domain" dimension.
-  "lines"?: LineConfig[],
+  "lines"?: LineConfig[];
 }
 
 /**
@@ -277,12 +277,12 @@ export interface LineConfig {
    * Show the value not just for the currently selected option but for multiple options of the given
    * dimension (references the dimension's "name" property).
    */
-  "expand_dimension": string,
+  "expand_dimension": string;
 
   /**
    * option from the "expand_dimension" for which the application should render a line
    */
-  "line"?: string | number,
+  "line"?: string | number;
 
   /**
    * options from the "expand_dimension" for which the application should render a shaded area.
@@ -292,8 +292,8 @@ export interface LineConfig {
    * NB: It is an error to define only one of these properties; if one is specified, both must be
    * specified.
    */
-  "upper"?: string | number,
-  "lower"?: string | number,
+  "upper"?: string | number;
+  "lower"?: string | number;
 }
 
 /**
@@ -303,16 +303,16 @@ export interface LineConfig {
  * selected pixel/feature and the corresponding color based on the current `ColorScale`.
  */
 export interface ValuesDisplay {
-  "type": "values",
+  "type": "values";
 
   /**
    * show the value not just for the currently selected option but for ALL options of the given
    * dimension (references the dimension's "name" property)
    */
-  "expand_dimension"?: string,
+  "expand_dimension"?: string;
 
   // round to this many places after the decimal point
-  "precision"?: number, // default: no rounding
+  "precision"?: number; // default: no rounding
 }
 
 /**
@@ -330,25 +330,25 @@ export interface ColorScale {
 
   // a `Conditions` object (defined below) specifying when this color scale will be active
   // If no conditions are specified, the color scale will always be active.
-  "conditions"?: Conditions,
+  "conditions"?: Conditions;
 
   // text to display on the color scale legend when this color scale is active
-  "legend_label": string,
+  "legend_label": string;
 
   // NOT YET SUPPORTED
   // In a "dynamic" color scale, color offset values represent not precise data values but fractions
   // (in the range 0.0 - 1.0) of a reference extent. The reference extent corresponds to the
   // extent of data values (min. to max.) of the currently selected location for the currently
   // selected data dimensions.
-  "dynamic"?: boolean, // default: false
+  "dynamic"?: boolean; // default: false
 
   // array of `ColorStop` objects that comprise the scale (defined below), ordered from smallest to
   // largest `offset` values.
-  "scale": ColorStop[],
+  "scale": ColorStop[];
 
   // array of `SentinelValue` objects that comprise individual non-numeric values depicted by their
   // associated `label`.
-  "sentinel_values"?: SentinelValue[],
+  "sentinel_values"?: SentinelValue[];
 }
 
 /**
@@ -363,7 +363,7 @@ export interface ColorStop {
    * and d3-scale (https://github.com/d3/d3-scale#continuous_interpolate)
    * e.g.: hex codes, rgb, rgba, hsl, hsla, and HTML color names
    */
-  "color": string,
+  "color": string;
 
   /**
    * value at which the specified color will be applied
@@ -371,10 +371,10 @@ export interface ColorStop {
    * to a literal data value.
    */
 
-  "offset": number,
+  "offset": number;
 
   // optional label to show for this color stop on the color scale legend
-  "label"?: string,
+  "label"?: string;
 }
 
 export interface SentinelValue extends ColorStop {
@@ -400,5 +400,5 @@ export interface SentinelValue extends ColorStop {
  * INACTIVE otherwise
  */
 export interface Conditions {
-  [dimensionName: string]: Array<string | number>,
+  [dimensionName: string]: Array<string | number>;
 }
