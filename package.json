@@ -6,7 +6,10 @@
   "scripts": {
     "typecheck": "tsc",
     "lint": "tslint config.spec.d.ts",
-    "test": "npm run typecheck && npm run lint"
+    "test": "npm run typecheck && npm run lint",
+    "release:major": "npm version -m \"Bump major version: %s\" major",
+    "release:minor": "npm version -m \"Bump minor version: %s\" minor",
+    "release:patch": "npm version -m \"Bump patch version: %s\" patch"
   },
   "repository": {
     "type": "git",
