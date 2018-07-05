@@ -58,6 +58,9 @@ export interface DataFormat {
   "data_type"?: DataType; // default: "Float64"
   // numeric value in TIFF files that indicates the absence of data for a given pixel
   "no_data_value"?: number; // default: -1.7e+308
+  // zoom level represented by the source raster images, based on standard Google-style map tiling:
+  // http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/)
+  "native_zoom"?: number; // default: 5
 }
 
 // configuration pertaining to shapefiles used to draw political units on the map
