@@ -188,7 +188,7 @@ export interface Schema {
    * an array of strings referencing the "name" property of `Dimension` objects defined in the
    * "dimensions" property of the `Config` object
    */
-  "dimensions": string[];
+  "dimensions"?: string[];
 
   /**
    * template representing a relative path to the raster files (TIFF) for this schema
