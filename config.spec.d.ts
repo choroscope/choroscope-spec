@@ -3,8 +3,10 @@
  */
 export interface Config {
 
-  // the name used internally as a unique identifier for the current theme;
-  // must be unique; should ideally be as short as possible without being cryptic
+  /**
+   * the name used internally as a unique identifier for the current theme;
+   * must be unique; should ideally be as short as possible without being cryptic
+   */
   "name": string;
 
   // the name of the theme as displayed to the user
@@ -30,12 +32,16 @@ export interface Config {
 
   "shapefiles": Shapefiles;
 
-  // tile server URL for the basemap that will be displayed UNDER the data layer
-  // default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
+  /**
+   * tile server URL for the basemap that will be displayed UNDER the data layer
+   * default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
+   */
   "basemap_url"?: string;
 
-  // tile server URL for the basemap that will be displayed ON TOP OF the data layer (usu. labels)
-  // default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
+  /**
+   * tile server URL for the basemap that will be displayed ON TOP OF the data layer (usu. labels)
+   * default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
+   */
   "basemap_labels_url"?: string;
 
   // array of data dimensions used in the visualization (defined below)
@@ -58,8 +64,10 @@ export interface DataFormat {
   "data_type"?: DataType; // default: "Float64"
   // numeric value in TIFF files that indicates the absence of data for a given pixel
   "no_data_value"?: number; // default: -1.7e+308
-  // zoom level represented by the source raster images, based on standard Google-style map tiling:
-  // http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/)
+  /**
+   * zoom level represented by the source raster images, based on standard Google-style map tiling:
+   * http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/)
+   */
   "native_zoom"?: number; // default: 5
 }
 
@@ -111,9 +119,10 @@ export type DataType =
  * without having to be defined multiple times.
  */
 export interface Dimension {
-
-  // the name used internally as a unique identifier for the dimension;
-  // must be unique; should ideally be as short as possible without being cryptic
+  /**
+   * the name used internally as a unique identifier for the dimension;
+   * must be unique; should ideally be as short as possible without being cryptic
+   */
   "name": string;
 
   // the name of the dimension as displayed to the user
@@ -125,8 +134,10 @@ export interface Dimension {
   // option to display by default when the tool starts
   "default_option"?: string | number; // default: the first element in the "options" array
 
-  // type of control widget the user will use to set the dimension
-  // default: "select"
+  /**
+   * type of control widget the user will use to set the dimension
+   * default: "select"
+   */
   "widget_type"?:
     // a text selection box that displays the current option and expands to a scrollable list of
     // all options when clicked
@@ -176,13 +187,16 @@ export type Option =
  * active schema. In the database, each schema is represented by a separate set of data tables.
  */
 export interface Schema {
-
-  // unique name for the schema, used internally;
-  // should ideally be as short as possible without being cryptic
+  /**
+   * unique name for the schema, used internally;
+   * should ideally be as short as possible without being cryptic
+   */
   "name": string;
 
-  // a `Conditions` object (defined below) specifying when this schema will be active
-  // If no conditions are specified, the schema will always be active.
+  /**
+   * a `Conditions` object (defined below) specifying when this schema will be active
+   * If no conditions are specified, the schema will always be active.
+   */
   "conditions"?: Conditions;
 
   /**
@@ -217,8 +231,10 @@ export interface Schema {
    */
   "filepath_template_raster"?: string;
 
-  // template representing a relative path to the aggregate data files (CSV) for this schema;
-  // the same guidelines apply as for "filepath_template_raster" above
+  /**
+   * template representing a relative path to the aggregate data files (CSV) for this schema;
+   * the same guidelines apply as for "filepath_template_raster" above
+   */
   "filepath_template_aggregate"?: string;
 
   /**
@@ -331,8 +347,10 @@ export interface ValuesDisplay {
  */
 export interface ColorScale {
 
-  // a `Conditions` object (defined below) specifying when this color scale will be active
-  // If no conditions are specified, the color scale will always be active.
+  /**
+   * a `Conditions` object (defined below) specifying when this color scale will be active
+   * If no conditions are specified, the color scale will always be active.
+   */
   "conditions"?: Conditions;
 
   // text to display on the color scale legend when this color scale is active
@@ -352,12 +370,16 @@ export interface ColorScale {
     };
   };
 
-  // array of `ColorStop` objects that comprise the scale (defined below), ordered from smallest to
-  // largest `offset` values.
+  /**
+   * array of `ColorStop` objects that comprise the scale (defined below), ordered from smallest to
+   * largest `offset` values.
+   */
   "scale": ColorStop[];
 
-  // array of `SentinelValue` objects that comprise individual non-numeric values depicted by their
-  // associated `label`.
+  /**
+   * array of `SentinelValue` objects that comprise individual non-numeric values depicted by their
+   * associated `label`.
+   */
   "sentinel_values"?: SentinelValue[];
 
   // Spacing between values, defaults to linear. In cases where the data are clustering in one section,
@@ -384,7 +406,6 @@ export interface ColorStop {
    * If the color scale is dynamic, offset will be in the range 0-1; otherwise it will correspond
    * to a literal data value.
    */
-
   "offset": number;
 
   /**
