@@ -394,7 +394,11 @@ export interface ColorStop {
 
   "offset": number;
 
-  // optional label to show for this color stop on the color scale legend
+  /**
+   * optional label to show for this color stop on the color scale legend
+   * If "{val}" appears within the string, it will be replaced by the value of the offset of the
+   * color stop after scaling (if property "scaling" is defined for the color scale).
+   */
   "label"?: string;
 }
 
