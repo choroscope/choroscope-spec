@@ -338,13 +338,6 @@ export interface ColorScale {
   // text to display on the color scale legend when this color scale is active
   "legend_label": string;
 
-  // NOT YET SUPPORTED
-  // In a "dynamic" color scale, color offset values represent not precise data values but fractions
-  // (in the range 0.0 - 1.0) of a reference extent. The reference extent corresponds to the
-  // extent of data values (min. to max.) of the currently selected location for the currently
-  // selected data dimensions.
-  "dynamic"?: boolean; // default: false
-
   /**
    * This optional property defines how to scale the offsets in the color scale according to the
    * display mode ("geo" vs. "aggregate") and for each detail level within "aggregate" mode.
