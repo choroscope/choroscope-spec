@@ -345,6 +345,20 @@ export interface ColorScale {
   // selected data dimensions.
   "dynamic"?: boolean; // default: false
 
+  /**
+   * This optional property defines how to scale the offsets in the color scale according to the
+   * display mode ("geo" vs. "aggregate") and for each detail level within "aggregate" mode.
+   * default for each is { "factor": 1 } (i.e. no scaling)
+   */
+  "scaling"?: {
+    "geo"?: Scaling;
+    "aggregate"?: {
+      "admin0"?: Scaling;
+      "admin1"?: Scaling;
+      "admin2"?: Scaling;
+    };
+  };
+
   // array of `ColorStop` objects that comprise the scale (defined below), ordered from smallest to
   // largest `offset` values.
   "scale": ColorStop[];
@@ -387,6 +401,11 @@ export interface ColorStop {
 export interface SentinelValue extends ColorStop {
   // Label to show in relation to the color in the SentinelValue Legend.
   "label": string;
+}
+
+export interface Scaling {
+  // multiplier for each offset value in the color scale
+  "factor": number;
 }
 
 /**
