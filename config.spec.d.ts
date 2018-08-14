@@ -363,7 +363,7 @@ export interface ColorScale {
    */
   "scaling"?: {
     "geo"?: Scaling;
-    "aggregate"?: {
+    "aggregate"?: Scaling | {
       "admin0"?: Scaling;
       "admin1"?: Scaling;
       "admin2"?: Scaling;
