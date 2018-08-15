@@ -352,6 +352,10 @@ export interface ColorScale {
   // array of `SentinelValue` objects that comprise individual non-numeric values depicted by their
   // associated `label`.
   "sentinel_values"?: SentinelValue[];
+
+  // Spacing between values, defaults to linear. In cases where the data are clustering in one section,
+  // `log10` or `ln` may distribute data more evenly.
+  "legend_distribution"?: "linear" | "ln" | "log10";
 }
 
 /**
