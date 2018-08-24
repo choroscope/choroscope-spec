@@ -69,6 +69,8 @@ export interface DataFormat {
    * http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/)
    */
   "native_zoom"?: number; // default: 5
+  // maximum (i.e. most detailed) admin level available
+  "max_admin_level"?: 0 | 1 | 2; // default: 2
 }
 
 // configuration pertaining to shapefiles used to draw political units on the map
