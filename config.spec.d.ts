@@ -404,9 +404,7 @@ export interface ColorStop {
   "color": string;
 
   /**
-   * value at which the specified color will be applied
-   * If the color scale is dynamic, offset will be in the range 0-1; otherwise it will correspond
-   * to a literal data value.
+   * literal data value at which the specified color will be applied.
    */
   "offset": number;
 
