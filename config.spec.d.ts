@@ -259,6 +259,12 @@ export interface Schema {
 
   // `InfoDisplay` configurations (defined below) for this schema
   "info_displays"?: InfoDisplay[];
+
+  /**
+   * When displaying data values, round to this many places after the decimal point.
+   * (default: no rounding)
+   */
+  "display_precision"?: number;
 }
 
 /**
@@ -332,7 +338,10 @@ export interface ValuesDisplay {
    */
   "expand_dimension"?: string;
 
-  // round to this many places after the decimal point
+  /**
+   * DEPRECATED: use `Schema.display_precision` instead
+   * round to this many places after the decimal point
+   */
   "precision"?: number; // default: no rounding
 }
 
