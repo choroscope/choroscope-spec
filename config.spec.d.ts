@@ -382,8 +382,7 @@ export interface ColorScale {
   };
 
   /**
-   * array of `ColorStop` objects that comprise the scale (defined below), ordered from smallest to
-   * largest `offset` values.
+   * array of `ColorStop` objects that comprise the scale (defined below)
    */
   "scale": ColorStop[];
 
