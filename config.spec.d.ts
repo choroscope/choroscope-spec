@@ -124,10 +124,10 @@ export type DataType =
 /**
  * alternative to specifying DataType directly; allows different types for raster versus aggregate
  */
-export type DataTypeConfig = {
-  "raster": DataType,
-  "aggregate": DataType,
-};
+export interface DataTypeConfig {
+  "raster": DataType;
+  "aggregate": DataType;
+}
 
 /**
  * data dimension defined within the "dimensions" property of `Config`, above
