@@ -57,18 +57,27 @@ export interface Config {
 export interface DataFormat {
   // Enable visualization of raster data?
   "raster"?: boolean;    // default: true
+
   // Enable visualization of aggregate data?
   "aggregate"?: boolean; // default: true
-  // Low-level representation of data values. This MUST correspond to the pixel type of the raster
-  // files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
-  "data_type"?: DataType; // default: "Float64"
+
+  /**
+   * Low-level representation of data values. This MUST correspond to the pixel type of the raster
+   * files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
+   * If value is of type DataType, it applies to all data, raster and aggregate alike.
+   * If different types are needed for aggregate versus raster data, use DataTypeConfig instead.
+   */
+  "data_type"?: DataType | DataTypeConfig; // default: "Float64"
+
   // numeric value in TIFF files that indicates the absence of data for a given pixel
   "no_data_value"?: number; // default: -1.7e+308
+
   /**
    * zoom level represented by the source raster images, based on standard Google-style map tiling:
    * http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/)
    */
   "native_zoom"?: number; // default: 5
+
   // maximum (i.e. most detailed) admin level available
   "max_admin_level"?: 0 | 1 | 2; // default: 2
 }
@@ -111,6 +120,14 @@ export type DataType =
   // Float64   | 64BF               | double precision
   | "Float64"
   ;
+
+/**
+ * alternative to specifying DataType directly; allows different types for raster versus aggregate
+ */
+export type DataTypeConfig = {
+  "raster": DataType,
+  "aggregate": DataType,
+};
 
 /**
  * data dimension defined within the "dimensions" property of `Config`, above
