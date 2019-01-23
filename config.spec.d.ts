@@ -90,6 +90,14 @@ export interface Shapefiles {
    * descendants.
    */
   "admin0_locations": number[];
+  /**
+   * list of location_ids for locations with no descendants
+   * Note that it's not necessary to list IDs for locations at the max admin level. We assume those
+   * locations have no descendants. Instead, this list is used to specify deviations from the norm,
+   * that is, branches of the location hierarchy that do not extend all the way down to the max
+   * admin level.
+   */
+  "no_descendants"?: number[];
 }
 
 /**
