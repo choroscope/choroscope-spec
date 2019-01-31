@@ -90,6 +90,7 @@ export interface Shapefiles {
    * descendants.
    */
   "admin0_locations": number[];
+
   /**
    * list of location_ids for locations with no descendants
    * Note that it's not necessary to list IDs for locations at the max admin level. We assume those
@@ -427,7 +428,6 @@ export interface ColorScale {
  * specified data value
  */
 export interface ColorStop {
-
   /**
    * string representation of a color, in a format compatible with both
    * CartoCSS (https://carto.com/docs/carto-engine/cartocss/properties/#color)
