@@ -103,12 +103,12 @@ export interface Shapefiles {
   /**
    * list of location_ids for which no raster data is available
    */
-  "exclude_raster"?: number[],
+  "exclude_raster"?: number[];
 
   /**
    * list of location_ids for which no aggregate data is available
    */
-  "exclude_aggregate"?: number[],
+  "exclude_aggregate"?: number[];
 }
 
 /**
