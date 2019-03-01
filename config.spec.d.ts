@@ -90,6 +90,25 @@ export interface Shapefiles {
    * descendants.
    */
   "admin0_locations": number[];
+
+  /**
+   * list of location_ids for locations with no descendants
+   * Note that it's not necessary to list IDs for locations at the max admin level. We assume those
+   * locations have no descendants. Instead, this list is used to specify deviations from the norm,
+   * that is, branches of the location hierarchy that do not extend all the way down to the max
+   * admin level.
+   */
+  "no_descendants"?: number[];
+
+  /**
+   * list of location_ids for which no raster data is available
+   */
+  "exclude_raster"?: number[];
+
+  /**
+   * list of location_ids for which no aggregate data is available
+   */
+  "exclude_aggregate"?: number[];
 }
 
 /**
@@ -419,7 +438,6 @@ export interface ColorScale {
  * specified data value
  */
 export interface ColorStop {
-
   /**
    * string representation of a color, in a format compatible with both
    * CartoCSS (https://carto.com/docs/carto-engine/cartocss/properties/#color)
