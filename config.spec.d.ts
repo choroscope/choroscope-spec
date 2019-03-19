@@ -312,9 +312,25 @@ export interface Schema {
  * configuration object(s) provided.
  */
 export type InfoDisplay =
+  | BarChart
   | LineChart
   | ValuesDisplay
   ;
+
+/**
+ * configuration object for the BarChart display component
+ */
+export interface BarChart {
+  "type": "bar_chart";
+
+  // dimension whose options comprise the categories
+  // In a normal bar chart, each category is represented by a single bar.
+  // In a stacked bar chart, each category is represented by a stack.
+  "category_dimension": string;
+
+  // only used for stacked bar chart: the dimension whose options comprise the layers
+  "subcategory_dimension"?: string;
+}
 
 /**
  * configuration object for the LineChart display component
