@@ -436,7 +436,7 @@ export interface ColorScale {
   /**
    * array of `ColorStop` objects that comprise the scale (defined below)
    */
-  "scale": ColorStop[];
+  "scale"?: ColorStop[];
 
   /**
    * array of `SentinelValue` objects that comprise individual non-numeric values depicted by their
