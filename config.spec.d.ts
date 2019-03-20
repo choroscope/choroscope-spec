@@ -405,6 +405,15 @@ export interface ValuesDisplay {
  * those colors should be applied. Values in between reference values will be colorized with an
  * interpolated color.
  *
+ * It's also possible to specify one or more fixed values, i.e. "sentinel values". If a data value
+ * matches a sentinel value exactly, the designated color will be applied. No interpolation is done
+ * for sentinel values.
+ *
+ * Note that each `ColorScale` object must contain a non-empty array for either `scale` or
+ * `sentinel_values`. It's also possible to specify both. In that case, the application will first
+ * match values against sentinel values. If no matching value is found, it will then colorize
+ * according to the `scale`.
+ *
  * As with schemas, one (and only one) color scale may be active at a given time. We specify when a
  * color scale is active with the "conditions" property.
  */
