@@ -453,8 +453,11 @@ export interface ColorScale {
    */
   "sentinel_values"?: SentinelValue[];
 
-  // Spacing between values, defaults to linear. In cases where the data are clustering in one section,
-  // `log10` or `ln` may distribute data more evenly.
+  /**
+   * distribution of stops in the legend. Typically this will be linear (the default), but for
+   * certain types of data sets a logarithmic distribution, which provides greater resolution at the
+   * lower end of the scale, may be more appropriate.
+   */
   "legend_distribution"?: "linear" | "ln" | "log10";
 }
 
