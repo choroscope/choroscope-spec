@@ -459,6 +459,11 @@ export interface ColorScale {
    * lower end of the scale, may be more appropriate.
    */
   "legend_distribution"?: "linear" | "ln" | "log10";
+
+  /**
+   * a custom SVG element (scalable vector graphics) to be used in place of the usual legend
+   */
+  "custom_legend"?: CustomLegend;
 }
 
 /**
@@ -495,6 +500,14 @@ export interface SentinelValue extends ColorStop {
 export interface Scaling {
   // multiplier for each offset value in the color scale
   "factor": number;
+}
+
+export interface CustomLegend {
+  // relative path to an SVG file whose contents should be used for the custom legend
+  "filepath"?: string;
+  // string representing an SVG element to be used for the custom legend.
+  // if defined, takes precedence over the "file" property
+  "contents"?: string;
 }
 
 /**
