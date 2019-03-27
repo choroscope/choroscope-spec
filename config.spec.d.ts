@@ -405,6 +405,15 @@ export interface ValuesDisplay {
  * those colors should be applied. Values in between reference values will be colorized with an
  * interpolated color.
  *
+ * It's also possible to specify one or more fixed values, i.e. "sentinel values". If a data value
+ * matches a sentinel value exactly, the designated color will be applied. No interpolation is done
+ * for sentinel values.
+ *
+ * Note that each `ColorScale` object must contain a non-empty array for either `scale` or
+ * `sentinel_values`. It's also possible to specify both. In that case, the application will first
+ * match values against sentinel values. If no matching value is found, it will then colorize
+ * according to the `scale`.
+ *
  * As with schemas, one (and only one) color scale may be active at a given time. We specify when a
  * color scale is active with the "conditions" property.
  */
@@ -436,7 +445,7 @@ export interface ColorScale {
   /**
    * array of `ColorStop` objects that comprise the scale (defined below)
    */
-  "scale": ColorStop[];
+  "scale"?: ColorStop[];
 
   /**
    * array of `SentinelValue` objects that comprise individual non-numeric values depicted by their
@@ -444,8 +453,11 @@ export interface ColorScale {
    */
   "sentinel_values"?: SentinelValue[];
 
-  // Spacing between values, defaults to linear. In cases where the data are clustering in one section,
-  // `log10` or `ln` may distribute data more evenly.
+  /**
+   * distribution of stops in the legend. Typically this will be linear (the default), but for
+   * certain types of data sets a logarithmic distribution, which provides greater resolution at the
+   * lower end of the scale, may be more appropriate.
+   */
   "legend_distribution"?: "linear" | "ln" | "log10";
 }
 
