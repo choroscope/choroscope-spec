@@ -509,8 +509,8 @@ export interface Scaling {
 export interface CustomLegend {
   // relative path to an SVG file whose contents should be used for the custom legend
   "filepath"?: string;
-  // string representing an SVG element to be used for the custom legend.
-  // if defined, takes precedence over the "file" property
+  // string representing an SVG element to be used for the custom legend;
+  // if defined, takes precedence over the "filepath" property
   "contents"?: string;
 }
 
