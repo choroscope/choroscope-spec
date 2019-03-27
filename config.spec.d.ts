@@ -461,7 +461,11 @@ export interface ColorScale {
   "legend_distribution"?: "linear" | "ln" | "log10";
 
   /**
-   * a custom SVG element (scalable vector graphics) to be used in place of the usual legend
+   * a custom SVG (Scalable Vector Graphics) element to be used in place of the usual legend
+   *
+   * Note that the (outermost) SVG element must define the display dimensions. The simplest way to
+   * do that is by defining the "height" and "width" attributes in terms of pixels, e.g.:
+   *   <svg height="100" width="100" ...>...</svg>
    */
   "custom_legend"?: CustomLegend;
 }
