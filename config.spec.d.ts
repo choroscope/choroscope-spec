@@ -20,6 +20,11 @@ export interface Config {
   "data_format"?: DataFormat;
 
   /**
+   * default settings to show when the theme is first loading in the application
+   */
+  "default_display"?: DefaultDisplay;
+
+  /**
    * the URL from which a user may download the source data files
    */
   "download_url"?: string;
@@ -104,6 +109,18 @@ export interface DataFormat {
    * maximum (i.e. most detailed) admin level available. default: 2
    */
   "max_admin_level"?: 0 | 1 | 2;
+}
+
+export interface DefaultDisplay {
+  /**
+   * display mode to show when the theme is first loaded; default: aggregate
+   */
+  "mode"?: "geo" | "aggregate";
+
+  /**
+   * detail level to show when the theme is first loaded; default: 1
+   */
+  "level"?: 0 | 1 | 2;
 }
 
 /**
