@@ -530,10 +530,7 @@ export interface ColorScale {
  */
 export interface ColorStop {
   /**
-   * string representation of a color, in a format compatible with both
-   * CartoCSS (https://carto.com/docs/carto-engine/cartocss/properties/#color)
-   * and d3-scale (https://github.com/d3/d3-scale#continuous_interpolate)
-   * e.g.: hex codes, rgb, rgba, hsl, hsla, and HTML color names
+   * HTML string representation of a color, e.g.: hex code, rgb, rgba, hsl, hsla, or color name
    */
   "color": string;
 
