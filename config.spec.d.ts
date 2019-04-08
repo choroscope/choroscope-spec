@@ -101,7 +101,7 @@ export interface DataFormat {
 
   /**
    * numeric value in TIFF files that indicates the absence of data for a given pixel
-   * default: -1.7e+308
+   * default: -999999
    */
   "no_data_value"?: number;
 
