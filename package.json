@@ -19,6 +19,7 @@
   "license": "ISC",
   "devDependencies": {
     "tslint": "~5.9",
+    "typedoc": "~0.14",
     "typescript": "~2.8"
   }
 }
