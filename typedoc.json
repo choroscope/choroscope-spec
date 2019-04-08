@@ -1,0 +1,9 @@
+{
+    "name": "Choroscope Theme Specification",
+    "mode": "file",
+    "out": "docs",
+    "theme": "default",
+    "readme": "README.md",
+    "includeDeclarations": true,
+    "excludeExternals": true
+}
