@@ -2,6 +2,10 @@
  * the JSON configuration object as a whole
  */
 export interface Config {
+  /**
+   * specification version used by the theme
+   */
+  "version": string;
 
   /**
    * the name used internally as a unique identifier for the current theme;
