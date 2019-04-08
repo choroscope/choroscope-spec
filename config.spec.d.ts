@@ -115,7 +115,7 @@ export interface DataFormat {
   /**
    * maximum (i.e. most detailed) admin level available. default: 2
    */
-  "max_admin_level"?: 0 | 1 | 2;
+  "max_admin_level"?: AdminLevel;
 }
 
 export interface DefaultDisplay {
@@ -127,8 +127,13 @@ export interface DefaultDisplay {
   /**
    * detail level to show when the theme is first loaded; default: 1
    */
-  "level"?: 0 | 1 | 2;
+  "level"?: AdminLevel;
 }
+
+/**
+ * level of administrative units on the map (where level 0 indicates nations)
+ */
+export type AdminLevel = 0 | 1 | 2;
 
 /**
  * configuration pertaining to shapefiles used to draw political units on the map
