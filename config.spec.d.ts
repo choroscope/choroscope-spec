@@ -84,13 +84,20 @@ export interface DataFormat {
   "aggregate"?: boolean;
 
   /**
-   * Low-level representation of data values. This MUST correspond to the pixel type of the raster
-   * files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
-   * If value is of type DataType, it applies to all data, raster and aggregate alike.
-   * If different types are needed for aggregate versus raster data, use DataTypeConfig instead.
-   * default: "Float64"
+   * Low-level floating-point representation of aggregate data values:
+   * - "single": 32-bit
+   * - "double": 64-bit
+   *
+   * In most cases, single precision should be sufficient; it provides seven to eight significant
+   * digits. In case more significant digits are needed, double precision can be used instead, but
+   * note that using double precision may result in a database that is significantly larger.
+   *
+   * NB: Because of the technical limitations of rendering pixels in the application, we always use
+   * a 32-bit representation for raster data.
+   *
+   * default: "single"
    */
-  "data_type"?: DataType | DataTypeConfig;
+  "precision_aggregate"?: "single" | "double";
 
   /**
    * numeric value in TIFF files that indicates the absence of data for a given pixel
@@ -152,43 +159,6 @@ export interface Shapefiles {
    * list of location_ids for which no aggregate data is available
    */
   "exclude_aggregate"?: number[];
-}
-
-/**
- * corresponds to the identically-named pixel types in GDAL
- * See the table below for correspondence with Postgres/PostGIS types.
- */
-export type DataType =
-  // GDAL type | PostGIS pixel type | Postgres type for aggregate data
-  // -----------------------------------------------------------------
-  // Byte      | 8BSI               | smallint
-  | "Byte"
-
-  // Int16     | 16BSI              | smallint
-  | "Int16"
-
-  // UInt16    | 16BUI              | smallint
-  | "UInt16"
-
-  // Int32     | 32BSI              | integer
-  | "Int32"
-
-  // UInt32    | 32BUI              | integer
-  | "UInt32"
-
-  // Float32   | 32BF               | real
-  | "Float32"
-
-  // Float64   | 64BF               | double precision
-  | "Float64"
-  ;
-
-/**
- * alternative to specifying DataType directly; allows different types for raster versus aggregate
- */
-export interface DataTypeConfig {
-  "raster": DataType;
-  "aggregate": DataType;
 }
 
 /**
