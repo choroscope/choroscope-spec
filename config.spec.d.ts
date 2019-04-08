@@ -432,13 +432,6 @@ export interface ValuesDisplay {
    * dimension (references the dimension's "name" property)
    */
   "expand_dimension"?: string;
-
-  /**
-   * DEPRECATED: use `Schema.display_precision` instead
-   * round to this many places after the decimal point
-   * default: no rounding
-   */
-  "precision"?: number;
 }
 
 /**
