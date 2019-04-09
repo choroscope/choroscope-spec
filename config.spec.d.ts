@@ -511,18 +511,19 @@ export interface ColorScale {
   "legend_label": string;
 
   /**
-   * This optional property defines how to scale the offsets in the color scale according to the
-   * display mode ("geo" vs. "aggregate") and for each detail level within "aggregate" mode.
-   * default for each is `{ "factor": 1 }` (i.e. no scaling)
+   * This optional property defines how to scale the offsets in the color scale in aggregate mode.
+   *
+   * Scaling can be defined separately for each administrative level, or the same scaling can be
+   * used for all levels.
+   *
+   * default: `{ "factor": 1 }` (i.e. no scaling)
    */
-  "scaling"?: {
-    "geo"?: Scaling;
-    "aggregate"?: Scaling | {
-      "admin0"?: Scaling;
-      "admin1"?: Scaling;
-      "admin2"?: Scaling;
-    };
-  };
+  "scaling_aggregate"?: Scaling | ScalingByAdmin;
+
+  /**
+   * This optional property defines how to scale the offsets in the color scale in geospatial mode.
+   */
+  "scaling_geospatial"?: Scaling;
 
   /**
    * Array of [[ColorStop]] objects used for colorizing via linear interpolation
@@ -555,6 +556,17 @@ export interface ColorScale {
    * ```
    */
   "custom_legend"?: CustomLegend;
+}
+
+/**
+ * Scaling configuration for each administrative level
+ *
+ * default for each level: `{ "factor": 1 }` (i.e. no scaling)
+ */
+interface ScalingByAdmin {
+  "admin0"?: Scaling,
+  "admin1"?: Scaling,
+  "admin2"?: Scaling,
 }
 
 /**
