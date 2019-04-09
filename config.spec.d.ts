@@ -1,14 +1,16 @@
 /**
- * Top-level configuration object for the theme
+ * Top-level configuration for the theme
  */
 export interface Config {
   /**
    * Specification version used by the theme
+   *
+   * Accepts any valid [semver](https://semver.org) string
    */
   "version": string;
 
   /**
-   * Name used internally as a unique identifier for the current theme
+   * Name of the theme, used internally
    *
    * Must be unique within a given deployment of the application and should ideally be as short as
    * possible without being cryptic
@@ -16,7 +18,7 @@ export interface Config {
   "name": string;
 
   /**
-   * Name of the theme as displayed to the user
+   * Name of the theme, as displayed to the user
    */
   "display_name": string;
 
@@ -26,7 +28,7 @@ export interface Config {
   "data_format"?: DataFormat;
 
   /**
-   * Default settings to show when the theme is first loading in the application
+   * Default settings to show in the application when the theme is first loaded
    */
   "default_display"?: DefaultDisplay;
 
@@ -50,40 +52,43 @@ export interface Config {
   "filepath_raster_mask"?: string;
 
   /**
-   * Configuration for geographical features
+   * Configuration related to geographical features
    */
   "geography"?: Geography;
 
   /**
-   * Tile server URL for the basemap that will be displayed UNDER the data layer
+   * Tile URL for the basemap that will be displayed _under_ the data layer
    *
    * default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
    */
   "basemap_url"?: string;
 
   /**
-   * Tile server URL for the basemap that will be displayed ON TOP OF the data layer (usu. labels)
+   * Tile URL for the basemap that will be displayed _on top of_ the data layer (usu. text labels)
    *
    * default: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
    */
   "basemap_labels_url"?: string;
 
   /**
-   * Array of data dimensions used in the visualization
+   * Array of data dimensions used in the theme
    */
   "dimensions": Dimension[];
 
   /**
-   * Array of distinct data shapes used in the visualization
+   * Array of distinct data shapes used in the theme
    */
   "schemas": Schema[];
 
   /**
-   * Array of color scales used to colorize the data displayed on the map
+   * Array of color scales used to colorize map features according to their associated data values
    */
   "color_scales": ColorScale[];
 }
 
+/**
+ * Details of the data representation
+ */
 export interface DataFormat {
   /**
    * Enable visualization of raster data? default: true
@@ -132,6 +137,9 @@ export interface DataFormat {
   "max_admin_level"?: AdminLevel;
 }
 
+/**
+ * Default settings to show in the application when the theme is first loaded
+ */
 export interface DefaultDisplay {
   /**
    * Display mode to show when the theme is first loaded; default: "aggregate"
@@ -150,7 +158,7 @@ export interface DefaultDisplay {
 export type AdminLevel = 0 | 1 | 2;
 
 /**
- * Configuration for geographical features
+ * Configuration related to geographical features
  */
 export interface Geography {
   /**
@@ -164,10 +172,10 @@ export interface Geography {
   /**
    * List of location IDs for locations with no descendants
    *
-   * Note that it's not necessary to list IDs for locations at the max admin level. We assume those
-   * locations have no descendants. Instead, this list is used to specify deviations from the norm,
-   * that is, branches of the location hierarchy that do not extend all the way down to the max
-   * admin level.
+   * Note that it's not necessary to list IDs for locations at the max admin level
+   * ([[DataFormat.max_admin_level]]). We assume those locations have no descendants. Instead, this
+   * list is used to specify deviations from the norm, that is, branches of the location hierarchy
+   * that do not extend all the way down to the max admin level.
    */
   "no_descendants"?: number[];
 
@@ -183,16 +191,19 @@ export interface Geography {
 }
 
 /**
- * Data dimension defined within the "dimensions" property of [[Config]]
+ * Data dimension defined in [[Config.dimensions]]
  *
- * Dimensions are only meaningful within the context of a [[Schema]] (i.e. data shape). A dimension
- * defined here that is not referenced in any schema will not be used in the tool. We define
- * dimensions separately from schemas so that the same dimension may be used in multiple schemas
- * without having to be defined multiple times.
+ * Dimensions are only meaningful within the context of a [[Schema]]. A [[Schema]] is in essence
+ * simply a set of dimensions that describe the shape of the data.
+ *
+ * A dimension defined here that is not referenced in any schema will not be used in the tool. We
+ * define dimensions separately from schemas so that the same dimension may be used in multiple
+ * schemas without having to be defined multiple times.
  */
 export interface Dimension {
   /**
-   * Name used internally as a unique identifier for the dimension
+   * Name used internally as a unique identifier for the dimension. Other parts of the config,
+   * like [[Schema.dimensions]], can reference a dimension by this name.
    *
    * Must be unique and should ideally be as short as possible without being cryptic
    */
@@ -206,16 +217,16 @@ export interface Dimension {
   /**
    * Array of possible values for the dimension
    *
-   * The `Option` type allows specifying the (unique) internal name and the name used for display
+   * The [[Option]] type allows specifying the (unique) internal name and the name used for display
    * separately. Options may also be specified simply as numbers or strings. In that case the same
    * value (which must be unique) will be used both internally and for display.
    */
-  "options": (string | number | Option)[];
+  "options": Array<string | number | Option>;
 
   /**
-   * Option to display by default when the tool starts
+   * Option to display by default before the user has made a selection
    *
-   * default: the first element in the "options" array
+   * default: the first element in the [[Dimension.options]] array
    */
   "default_option"?: string | number;
 
@@ -259,7 +270,7 @@ export interface Dimension {
 export interface Option {
   /**
    * unique identifier (unique for the current dimension, that is) used to represent the option
-   * internally in the program and in the config file
+   * internally in the program and in the config file (like in [[Conditions]])
    */
   "name": string;
 
@@ -270,14 +281,17 @@ export interface Option {
 }
 
 /**
- * Data shape defined within the "schemas" property of [[Config]], and referencing dimensions
- * defined within the "dimensions" property of [[Config]]
+ * Data shape defined in [[Config.schemas]] and referencing dimensions defined in
+ * [[Config.dimensions]]
  *
- * The application supports multiple data shapes for a given theme. While the application is
- * running, one (and only one) schema may be active at a given time. We specify when a schema is
- * active with the "conditions" property. Essentially, one or more dimensions serve as schema
- * selectors. That is, when a user changes the value of such a dimension, he/she may change the
- * active schema. In the database, each schema is represented by a separate set of data tables.
+ * The application supports multiple data shapes for a given theme. A [[Schema]] is in essence
+ * a set of dimensions that describe the shape of the data.
+ *
+ * While the application is running, one (and only one) schema may be active at a given time. We
+ * specify when a schema is active with the `conditions` property. Essentially, one or more
+ * dimensions serve as schema selectors. That is, when a user changes the value of such a dimension,
+ * he/she may change the active schema. In the database, each schema is represented by a separate
+ * set of data tables.
  */
 export interface Schema {
   /**
@@ -298,8 +312,8 @@ export interface Schema {
    * Data dimensions defined for this schema (not including schema-selector dimensions specified in
    * `conditions`)
    *
-   * An array of strings referencing the `name` property of [[Dimension]] objects defined in the
-   * `dimensions` property of the [[Config]] object
+   * An array of strings, referencing dimensions defined in [[Config.dimensions]] via the
+   * [[Dimension.name]] property
    */
   "dimensions"?: string[];
 
@@ -309,7 +323,7 @@ export interface Schema {
    * There must be one file for every combination of options of the dimensions defined within the
    * `dimensions` property. The template should contain a "wildcard" for each such dimension (i.e.
    * the name of the dimension enclosed in curly braces. When searching for files, the program will
-   * substitute for each such wildcard the `name` property of each option defined for that
+   * substitute for each such wildcard the [[Option.name]] property of each option defined for that
    * dimension. It's recommended to use some delimiting character, like _, between wildcards.
    *
    * *EXAMPLE:*
@@ -344,8 +358,8 @@ export interface Schema {
    * Template representing the title text to display to the user when this schema is active
    *
    * May optionally contain wildcards that reference dimension names; in that case the wildcard
-   * will be replaced with the `display_name` property of the current option selected for the
-   * given dimension
+   * will be replaced with the [[Option.display_name]] property of the current option selected for
+   * the given dimension
    *
    * *EXAMPLE:*
    *
@@ -369,7 +383,7 @@ export interface Schema {
   "ui_title_template": string;
 
   /**
-   * [[InfoDisplay]] configurations for this schema
+   * Display component configuration(s) for this schema
    */
   "info_displays"?: InfoDisplay[];
 
@@ -402,7 +416,7 @@ export interface BarChart {
   "type": "bar_chart";
 
   /**
-   * Dimension whose options comprise the categories in the bar chart
+   * Dimension whose options comprise the categories in the bar chart; references [[Dimension.name]]
    *
    * In a normal bar chart, each category is represented by a single bar.
    * In a stacked bar chart, each category is represented by a stack.
@@ -410,7 +424,8 @@ export interface BarChart {
   "category_dimension": string;
 
   /**
-   * Dimension whose options comprise the layers in a stacked bar chart (unused for normal bar chart)
+   * Dimension whose options comprise the layers in a stacked bar chart (unused for normal bar
+   * charts); references [[Dimension.name]]
    */
   "subcategory_dimension"?: string;
 }
@@ -422,45 +437,64 @@ export interface LineChart {
   "type": "line_chart";
 
   /**
-   * Dimension to show as the domain of the chart
+   * Dimension to show as the domain of the chart; references [[Dimension.name]]
    */
   "domain": string;
 
   /**
    * Configuration for one or more lines (or areas) to display on the chart
    *
-   * If none specified, we show a line representing the values for the current data dimension
-   * selections for each option of the `domain` dimension.
+   * If none are specified, we graph a single line representing the values for each option of the
+   * `domain` dimension.
    */
   "lines"?: LineConfig[];
 }
 
 /**
  * Configuration for a line and/or area to display on a line chart
+ *
+ * `LineConfig` allows fine-grained control over the line chart, including:
+ * - showing a shaded area instead of (or in addition to) a line
+ * - showing multiple lines (or shaded areas) on the same chart, by specifying multiple `LineConfig`s
+ *
+ * `expand_dimension` designates a dimension of the schema that we'll pick apart, visualizing one or
+ * more of its `options` as a line or shaded area. It doesn't matter whether or not the map view
+ * is currently visualizing the option in question; we can still show it in the line chart.
+ *
+ * We draw a line by referencing a single option of the `expand_dimension` with the `line` property.
+ *
+ * We draw a shaded area by referencing two options of the `expand_dimension` as the `upper` and
+ * `lower` properties. To be more precise, we draw two lines (one for `upper` and one for `lower`),
+ * and we shade the area in between. This can be useful for showing a range or interval, like a
+ * statistical uncertainty interval.
+ *
+ * It's an error to define only `upper` or only `lower`. If one is specified, both must be specified.
  */
 export interface LineConfig {
   /**
-   * Show the value not just for the currently selected option but for multiple options of the given
-   * dimension (references the dimension's `name` property).
+   * Dimension of the schema whose options are referenced in the `line`, `upper`, and/or `lower`
+   * properties
+   *
+   * The dimension is referenced via [[Dimension.name]], as defined in [[Config.dimensions]].
    */
   "expand_dimension": string;
 
   /**
-   * Option from the `expand_dimension` for which the application should render a line
+   * Option from the `expand_dimension` for which the application should render a line; references
+   * [[Option.name]]
    */
   "line"?: string | number;
 
   /**
-   * Options from the `expand_dimension` for which the application should render a shaded area.
-   *
-   * To be more precise, we draw two lines, one for "upper" and one for "lower", and we shade the
-   * area in between. This is useful for showing a range or interval, like a statistical uncertainty
-   * interval.
-   *
-   * NB: It is an error to define only one of these properties; if one is specified, both must be
-   * specified.
+   * Option from the `expand_dimension` for which the application should render the upper bound
+   * of a shaded area; references [[Option.name]]
    */
   "upper"?: string | number;
+
+  /**
+   * Option from the `expand_dimension` for which the application should render the lower bound
+   * of a shaded area; references [[Option.name]]
+   */
   "lower"?: string | number;
 }
 
@@ -475,13 +509,13 @@ export interface ValuesDisplay {
 
   /**
    * Show the value not just for the currently selected option but for ALL options of the given
-   * dimension (references the dimension's `name` property)
+   * dimension (references [[Dimension.name]])
    */
   "expand_dimension"?: string;
 }
 
 /**
- * Color scale defined within the "color_scales" property of [[Config]]
+ * Rules for colorizing map features according to their associated data values
  *
  * The application can colorize the data displayed on the map using a variety of "color scales"
  * for a given theme. Each scale specifies a list of reference colors and the data values to which
@@ -550,13 +584,6 @@ export interface ColorScale {
 
   /**
    * Custom SVG (Scalable Vector Graphics) element to be used in place of the usual legend
-   *
-   * Note that the (outermost) SVG element must define the display dimensions. The simplest way to
-   * do that is by defining the `height` and `width` attributes in terms of pixels, e.g.:
-   *
-   * ```
-   * <svg height="100" width="100" ...>...</svg>
-   * ```
    */
   "custom_legend"?: CustomLegend;
 }
@@ -573,7 +600,8 @@ interface ScalingByAdmin {
 }
 
 /**
- * Object defined within [[ColorScale.scale]] describing how to colorize data values
+ * Object defined within [[ColorScale.scale]] describing how to colorize features via linear
+ * interpolation
  */
 export interface ColorStop {
   /**
@@ -589,20 +617,32 @@ export interface ColorStop {
   /**
    * Optional label to show for this color stop on the color scale legend
    *
-   * If "{val}" appears within the string, it will be replaced by the value of the offset of the
-   * color stop. If [[ColorScale.scaling]] is defined for the scale in question, "{val}" represents
-   * the value _after_ the scaling has been applied.
+   * If `"{val}"` appears within the string, it will be replaced by the value of the offset of the
+   * color stop. If [[ColorScale.scaling_aggregate]] or [[ColorScale.scaling_geospatial]] are
+   * defined for the scale in question, `"{val}"` represents the value _after_ the scaling has been
+   * applied.
    */
   "label"?: string;
 }
 
+/**
+ * Object defined within [[ColorScale.sentinel_values]] describing how to colorize features via
+ * exact value match
+ */
 export interface SentinelValue extends ColorStop {
   /**
    * Label associated with the sentinel value
+   *
+   * Note that `label` is required in a `SentinelValue`, whereas it's optional in a `ColorStop`.
+   * That's because the `offset` of a sentinel value is simply an arbitrary index with no
+   * specific meaningl; the `label` alone conveys the meaning of a sentinel value.
    */
   "label": string;
 }
 
+/**
+ * Rule describing how to scale offsets in a [[ColorScale]]
+ */
 export interface Scaling {
   /**
    * Multiplier for each color scale offset
@@ -610,6 +650,16 @@ export interface Scaling {
   "factor": number;
 }
 
+/**
+ * Custom SVG (Scalable Vector Graphics) element to be used in place of the usual legend
+ *
+ * Note that the (outermost) SVG element must define the display dimensions. The simplest way to
+ * do that is by defining the `height` and `width` attributes in terms of pixels, e.g.:
+ *
+ * ```
+ * <svg height="100" width="100" ...>...</svg>
+ * ```
+ */
 export interface CustomLegend {
   /**
    * Relative path to an SVG file whose contents should be used for the custom legend
@@ -625,23 +675,22 @@ export interface CustomLegend {
 }
 
 /**
- * Mapping from dimension `name` to an array of option `name`s
- *
- * Used in both [[Schema]] and [[ColorScale]] to determine when the schema/color-scale is active
+ * Representation of the conditions under which a given schema or color scale is active
  */
 export interface Conditions {
   /**
-   * Mapping from dimension `name` to an array of option `name`s
+   * Mapping from a dimension name to a subset of its options (referencing `Option.name`) for which
+   * the schema or color scale is active
    *
-   * The condition is satisfied if for each dimension specified, the current option is among those
-   * listed.
+   * The condition is satisfied if for each dimension specified, the currently selected option is
+   * among those listed.
    *
    * *EXAMPLE:*
    * ```
    * {
    *   dimensions: [
    *     { "name": "data-shape", "options": ["data-shape-1", "data-shape-2"], ... },
-   *     // ...
+   *     ...
    *   ],
    *   conditions: { "data-shape": ["data-shape-1"] }
    * }
