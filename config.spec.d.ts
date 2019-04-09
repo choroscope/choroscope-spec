@@ -49,7 +49,10 @@ export interface Config {
    */
   "filepath_raster_mask"?: string;
 
-  "shapefiles": Shapefiles;
+  /**
+   * Configuration for geographical features
+   */
+  "geography": Geography;
 
   /**
    * Tile server URL for the basemap that will be displayed UNDER the data layer
@@ -147,9 +150,9 @@ export interface DefaultDisplay {
 export type AdminLevel = 0 | 1 | 2;
 
 /**
- * Configuration pertaining to shapefiles used to draw political units on the map
+ * Configuration for geographical features
  */
-export interface Shapefiles {
+export interface Geography {
   /**
    * Whitelist of location IDs used to filter the shapefiles
    *
