@@ -36,16 +36,16 @@ export interface Config {
   "download_url"?: string;
 
   /**
-   * Relative path to the TIFF file to be applied as mask to each TIFF data file
+   * Relative path to a GeoTIFF file to be applied as mask to each GeoTIFF data file
    *
-   * example: "data/raster/mask.tiff"
+   * *Example:* "data/raster/mask.tiff"
    *
    * The process of masking compares each data file, pixel by pixel, to the mask. If the mask
    * contains a "no data" value for a given pixel, the corresponding pixel in the output raster will
    * also have a "no data" value. Otherwise it will have the value from the corresponding pixel in
    * the data file.
    *
-   * This property is required if [[DataFormat.raster]] is `true`.
+   * If this field is absent, no masking will occur.
    */
   "filepath_raster_mask"?: string;
 
