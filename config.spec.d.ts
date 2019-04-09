@@ -52,7 +52,7 @@ export interface Config {
   /**
    * Configuration for geographical features
    */
-  "geography": Geography;
+  "geography"?: Geography;
 
   /**
    * Tile server URL for the basemap that will be displayed UNDER the data layer
@@ -157,9 +157,9 @@ export interface Geography {
    * Whitelist of location IDs used to filter the shapefiles
    *
    * We include only these admin0 locations and only admin1 and admin2 locations that are their
-   * descendants.
+   * descendants. If this field is not specified, no filtering will occur.
    */
-  "admin0_locations": number[];
+  "admin0_locations"?: number[];
 
   /**
    * List of location IDs for locations with no descendants
