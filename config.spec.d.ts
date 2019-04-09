@@ -202,8 +202,12 @@ export interface Dimension {
 
   /**
    * Array of possible values for the dimension
+   *
+   * The `Option` type allows specifying the (unique) internal name and the name used for display
+   * separately. Options may also be specified simply as numbers or strings. In that case the same
+   * value (which must be unique) will be used both internally and for display.
    */
-  "options": Option[];
+  "options": (string | number | Option)[];
 
   /**
    * Option to display by default when the tool starts
@@ -247,26 +251,20 @@ export interface Dimension {
 }
 
 /**
- * Option defined within the "options" property of a [[Dimension]] object
- *
- * If an option is specified simply as a number or string, that value will be used as both `name`
- * and `display_name`.
+ * An option (i.e. possible value) of a [[Dimension]]
  */
-export type Option =
-  | string
-  | number
-  | {
-    /**
-     * unique identifier (unique for the current dimension, that is) used to represent the option
-     * internally in the program and in the config file
-     */
-    "name": string,
+export interface Option {
+  /**
+   * unique identifier (unique for the current dimension, that is) used to represent the option
+   * internally in the program and in the config file
+   */
+  "name": string;
 
-    /**
-     * the name shown to the user in the application
-     */
-    "display_name": string,
-  };
+  /**
+   * the name shown to the user in the application
+   */
+  "display_name": string;
+}
 
 /**
  * Data shape defined within the "schemas" property of [[Config]], and referencing dimensions
