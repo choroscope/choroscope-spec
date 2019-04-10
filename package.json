@@ -1,8 +1,8 @@
 {
-  "name": "specification",
-  "version": "3.1.0",
-  "description": "This repository contains the specifications for the configuration language shared by `geospatial-app` and `geospatial-util`.",
-  "main": "config.spec.d.ts",
+  "name": "choroscope-spec",
+  "version": "0.1.0",
+  "description": "Configuration language specification for Choroscope",
+  "types": "config.spec.d.ts",
   "scripts": {
     "typecheck": "tsc",
     "lint": "tslint config.spec.d.ts",
@@ -14,10 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@stash.ihme.washington.edu:7999/geov/specification.git"
+    "url": "git+https://github.com/choroscope/choroscope-spec.git"
   },
-  "author": "David Schneider <davschne@gmail.com>",
-  "license": "ISC",
+  "files": [
+    "config.spec.d.ts"
+  ],
+  "author": "David Schneider <davschne@gmail.com> (github.com/davschne)",
+  "license": "BSD-3-Clause",
   "devDependencies": {
     "tslint": "~5.9",
     "typedoc": "~0.14",
