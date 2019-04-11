@@ -9,12 +9,24 @@ export interface Config {
    */
   "name": string;
 
-  // the name of the theme as displayed to the user
+  /**
+   * the name of the theme as displayed to the user
+   */
   "display_name": string;
 
+  /**
+   * details of the data representation
+   */
   "data_format"?: DataFormat;
 
-  // the URL from which a user may download the source data files
+  /**
+   * default settings to show when the theme is first loading in the application
+   */
+  "default_display"?: DefaultDisplay;
+
+  /**
+   * the URL from which a user may download the source data files
+   */
   "download_url"?: string;
 
   /**
@@ -44,45 +56,76 @@ export interface Config {
    */
   "basemap_labels_url"?: string;
 
-  // array of data dimensions used in the visualization (defined below)
+  /**
+   * array of data dimensions used in the visualization (defined below)
+   */
   "dimensions": Dimension[];
 
-  // array of distinct data shapes used in the visualization (defined below)
+  /**
+   * array of distinct data shapes used in the visualization (defined below)
+   */
   "schemas": Schema[];
 
-  // array of color scales used to colorize the data displayed on the map (defined below)
+  /**
+   * array of color scales used to colorize the data displayed on the map (defined below)
+   */
   "color_scales": ColorScale[];
 }
 
 export interface DataFormat {
-  // Enable visualization of raster data?
-  "raster"?: boolean;    // default: true
+  /**
+   * Enable visualization of raster data? default: true
+   */
+  "raster"?: boolean;
 
-  // Enable visualization of aggregate data?
-  "aggregate"?: boolean; // default: true
+  /**
+   * Enable visualization of aggregate data? default: true
+   */
+  "aggregate"?: boolean;
 
   /**
    * Low-level representation of data values. This MUST correspond to the pixel type of the raster
    * files, if any. (The mask, however, may have any pixel type, though 'Byte' is recommended.)
    * If value is of type DataType, it applies to all data, raster and aggregate alike.
    * If different types are needed for aggregate versus raster data, use DataTypeConfig instead.
+   * default: "Float64"
    */
-  "data_type"?: DataType | DataTypeConfig; // default: "Float64"
+  "data_type"?: DataType | DataTypeConfig;
 
-  // numeric value in TIFF files that indicates the absence of data for a given pixel
-  "no_data_value"?: number; // default: -1.7e+308
+  /**
+   * numeric value in TIFF files that indicates the absence of data for a given pixel
+   * default: -1.7e+308
+   */
+  "no_data_value"?: number;
 
   /**
    * zoom level represented by the source raster images, based on standard Google-style map tiling:
    * http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/)
+   * default: 5
    */
-  "native_zoom"?: number; // default: 5
+  "native_zoom"?: number;
 
-  // maximum (i.e. most detailed) admin level available
-  "max_admin_level"?: 0 | 1 | 2; // default: 2
+  /**
+   * maximum (i.e. most detailed) admin level available. default: 2
+   */
+  "max_admin_level"?: 0 | 1 | 2;
 }
 
-// configuration pertaining to shapefiles used to draw political units on the map
+export interface DefaultDisplay {
+  /**
+   * display mode to show when the theme is first loaded; default: aggregate
+   */
+  "mode"?: "geo" | "aggregate";
+
+  /**
+   * detail level to show when the theme is first loaded; default: 1
+   */
+  "level"?: 0 | 1 | 2;
+}
+
+/**
+ * configuration pertaining to shapefiles used to draw political units on the map
+ */
 export interface Shapefiles {
   /**
    * whitelist of location_ids used to filter the shapefiles
@@ -163,36 +206,52 @@ export interface Dimension {
    */
   "name": string;
 
-  // the name of the dimension as displayed to the user
+  /**
+   * the name of the dimension as displayed to the user
+   */
   "display_name": string;
 
-  // array of possible values for the dimension (defined below)
+  /**
+   * array of possible values for the dimension (defined below)
+   */
   "options": Option[];
 
-  // option to display by default when the tool starts
-  "default_option"?: string | number; // default: the first element in the "options" array
+  /**
+   * option to display by default when the tool starts
+   * default: the first element in the "options" array
+   */
+  "default_option"?: string | number;
 
   /**
    * type of control widget the user will use to set the dimension
    * default: "select"
    */
   "widget_type"?:
-    // a text selection box that displays the current option and expands to a scrollable list of
-    // all options when clicked
+    /**
+     * a text selection box that displays the current option and expands to a scrollable list of
+     * all options when clicked
+     */
     | "select"
-    // a draggable horizontal slider
+    /**
+     * a draggable horizontal slider
+     */
     | "slider"
-    // a group of buttons, one for each option; one and only one button may be selected at a time
+    /**
+     * a group of buttons, one for each option; one and only one button may be selected at a time
+     */
     | "buttonset";
 
   /**
    * Enable the playback feature for this dimension?
    * If enabled, we render a play button next to the dimension control. Pressing play begins a timed
    * sequence of state changes in which we step through the array of options for this dimension.
+   * default: false
    */
-  "playable"?: boolean; // default: false
+  "playable"?: boolean;
 
-  // tooltip text to explain the meaning of the dimension to the user
+  /**
+   * tooltip text to explain the meaning of the dimension to the user
+   */
   "help_text"?: string;
 }
 
@@ -293,7 +352,9 @@ export interface Schema {
    */
   "ui_title_template": string;
 
-  // `InfoDisplay` configurations (defined below) for this schema
+  /**
+   * `InfoDisplay` configurations (defined below) for this schema
+   */
   "info_displays"?: InfoDisplay[];
 
   /**
@@ -323,12 +384,16 @@ export type InfoDisplay =
 export interface BarChart {
   "type": "bar_chart";
 
-  // dimension whose options comprise the categories
-  // In a normal bar chart, each category is represented by a single bar.
-  // In a stacked bar chart, each category is represented by a stack.
+  /**
+   * dimension whose options comprise the categories
+   * In a normal bar chart, each category is represented by a single bar.
+   * In a stacked bar chart, each category is represented by a stack.
+   */
   "category_dimension": string;
 
-  // only used for stacked bar chart: the dimension whose options comprise the layers
+  /**
+   * only used for stacked bar chart: the dimension whose options comprise the layers
+   */
   "subcategory_dimension"?: string;
 }
 
@@ -338,12 +403,16 @@ export interface BarChart {
 export interface LineChart {
   "type": "line_chart";
 
-  // dimension to show as domain of chart
+  /**
+   * dimension to show as domain of chart
+   */
   "domain": string;
 
-  // configuration for one or more lines (or areas) to display on the chart, defined below
-  // If none specified, we show a line representing the values for the current data dimension
-  // selections for each option of the "domain" dimension.
+  /**
+   * configuration for one or more lines (or areas) to display on the chart, defined below
+   * If none specified, we show a line representing the values for the current data dimension
+   * selections for each option of the "domain" dimension.
+   */
   "lines"?: LineConfig[];
 }
 
@@ -351,7 +420,6 @@ export interface LineChart {
  * configuration object for a line and/or area to display on a line chart
  */
 export interface LineConfig {
-
   /**
    * Show the value not just for the currently selected option but for multiple options of the given
    * dimension (references the dimension's "name" property).
@@ -393,8 +461,9 @@ export interface ValuesDisplay {
   /**
    * DEPRECATED: use `Schema.display_precision` instead
    * round to this many places after the decimal point
+   * default: no rounding
    */
-  "precision"?: number; // default: no rounding
+  "precision"?: number;
 }
 
 /**
@@ -425,7 +494,9 @@ export interface ColorScale {
    */
   "conditions"?: Conditions;
 
-  // text to display on the color scale legend when this color scale is active
+  /**
+   * text to display on the color scale legend when this color scale is active
+   */
   "legend_label": string;
 
   /**
@@ -476,10 +547,7 @@ export interface ColorScale {
  */
 export interface ColorStop {
   /**
-   * string representation of a color, in a format compatible with both
-   * CartoCSS (https://carto.com/docs/carto-engine/cartocss/properties/#color)
-   * and d3-scale (https://github.com/d3/d3-scale#continuous_interpolate)
-   * e.g.: hex codes, rgb, rgba, hsl, hsla, and HTML color names
+   * HTML string representation of a color, e.g.: hex code, rgb, rgba, hsl, hsla, or color name
    */
   "color": string;
 
@@ -497,20 +565,28 @@ export interface ColorStop {
 }
 
 export interface SentinelValue extends ColorStop {
-  // Label to show in relation to the color in the SentinelValue Legend.
+  /**
+   * Label to show in relation to the color in the SentinelValue Legend.
+   */
   "label": string;
 }
 
 export interface Scaling {
-  // multiplier for each offset value in the color scale
+  /**
+   * multiplier for each offset value in the color scale
+   */
   "factor": number;
 }
 
 export interface CustomLegend {
-  // relative path to an SVG file whose contents should be used for the custom legend
+  /**
+   * relative path to an SVG file whose contents should be used for the custom legend
+   */
   "filepath"?: string;
-  // string representing an SVG element to be used for the custom legend;
-  // if defined, takes precedence over the "filepath" property
+  /**
+   * string representing an SVG element to be used for the custom legend;
+   * if defined, takes precedence over the "filepath" property
+   */
   "contents"?: string;
 }
 
