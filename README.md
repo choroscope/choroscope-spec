@@ -30,7 +30,7 @@ For example, let's say we're defining a theme to visualize education data by loc
 
 This will require defining two schemas. For average education, we'll need two dimensions, sex and age group. For sex difference in education, however, we'll only need one dimension, age group. Because this latter data set already represents a comparison by sex, it would make no sense to break down the data further by sex. Our dimensions, then, might be defined as follows:
 
-```json
+```javascript
 [
   { "name": "age", "display_name": "Age group", "options": ["15-49", "20-24"] },
   { "name": "sex", "display_name": "Sex", "options": ["male", "female"] }
@@ -39,10 +39,10 @@ This will require defining two schemas. For average education, we'll need two di
 
 And our schemas could be defined like this:
 
-```json
+```javascript
 [
-  { "name": "avg_edu", "dimensions": ["age", "sex"], ... },
-  { "name": "diff", "dimensions": ["age"], ... }
+  { "name": "avg_edu", "dimensions": ["age", "sex"], /* ... */ },
+  { "name": "diff", "dimensions": ["age"], /* ... */ }
 ]
 ```
 
@@ -52,7 +52,7 @@ There are a few things to note here:
 
 At this point we've defined the shapes of both schemas and the dimensions needed to describe them, but the application doesn't yet have a way to let a user navigate between them. We still need a dimension for selecting between schemas and conditions to describe when each schema is active. Let's add a metadimension, which we'll call "measure":
 
-```json
+```javascript
 [
   {
     "name": "measure",
@@ -74,19 +74,19 @@ Observations:
 
 Now let's add conditions to each schema definition:
 
-```json
+```javascript
 [
   {
     "name": "avg_edu",
     "dimensions": ["age", "sex"],
     "conditions": { "measure": ["avg_edu"] },
-    ...
+    // ...
   },
   {
     "name": "diff",
     "dimensions": ["age"],
     "conditions": { "measure": ["diff"] },
-    ...
+    // ...
   }
 ]
 ```
