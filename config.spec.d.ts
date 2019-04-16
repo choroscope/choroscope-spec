@@ -635,7 +635,7 @@ export interface SentinelValue extends ColorStop {
    *
    * Note that `label` is required in a `SentinelValue`, whereas it's optional in a `ColorStop`.
    * That's because the `offset` of a sentinel value is simply an arbitrary index with no
-   * specific meaningl; the `label` alone conveys the meaning of a sentinel value.
+   * specific meaning; the `label` alone conveys the meaning of a sentinel value.
    */
   "label": string;
 }
