@@ -7,10 +7,7 @@
     "typecheck": "tsc",
     "lint": "tslint config.spec.d.ts",
     "test": "npm run typecheck && npm run lint",
-    "docgen": "rm -rf docs/* && typedoc config.spec.d.ts",
-    "release:major": "npm version -m \"Bump major version: %s\" major",
-    "release:minor": "npm version -m \"Bump minor version: %s\" minor",
-    "release:patch": "npm version -m \"Bump patch version: %s\" patch"
+    "docgen": "rm -rf docs/* && typedoc config.spec.d.ts"
   },
   "repository": {
     "type": "git",
