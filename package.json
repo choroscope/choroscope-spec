@@ -7,7 +7,8 @@
     "typecheck": "tsc",
     "lint": "tslint config.spec.d.ts",
     "test": "npm run typecheck && npm run lint",
-    "docgen": "rm -rf docs/* && typedoc config.spec.d.ts"
+    "docgen": "rm -rf docs/* && typedoc config.spec.d.ts",
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",
