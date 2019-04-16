@@ -594,9 +594,9 @@ export interface ColorScale {
  * default for each level: `{ "factor": 1 }` (i.e. no scaling)
  */
 interface ScalingByAdmin {
-  "admin0"?: Scaling,
-  "admin1"?: Scaling,
-  "admin2"?: Scaling,
+  "admin0"?: Scaling;
+  "admin1"?: Scaling;
+  "admin2"?: Scaling;
 }
 
 /**
