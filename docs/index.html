@@ -89,14 +89,14 @@
 					<li>the difference in education (in years) between men and women, broken down by age group</li>
 				</ol>
 				<p>This will require defining two schemas. For average education, we&#39;ll need two dimensions, sex and age group. For sex difference in education, however, we&#39;ll only need one dimension, age group. Because this latter data set already represents a comparison by sex, it would make no sense to break down the data further by sex. Our dimensions, then, might be defined as follows:</p>
-				<pre><code class="language-json">[
-  { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"age"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Age group"</span>, <span class="hljs-attr">"options"</span>: [<span class="hljs-string">"15-49"</span>, <span class="hljs-string">"20-24"</span>] },
-  { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"sex"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Sex"</span>, <span class="hljs-attr">"options"</span>: [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>] }
+				<pre><code class="language-javascript">[
+  { <span class="hljs-string">"name"</span>: <span class="hljs-string">"age"</span>, <span class="hljs-string">"display_name"</span>: <span class="hljs-string">"Age group"</span>, <span class="hljs-string">"options"</span>: [<span class="hljs-string">"15-49"</span>, <span class="hljs-string">"20-24"</span>] },
+  { <span class="hljs-string">"name"</span>: <span class="hljs-string">"sex"</span>, <span class="hljs-string">"display_name"</span>: <span class="hljs-string">"Sex"</span>, <span class="hljs-string">"options"</span>: [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>] }
 ]</code></pre>
 				<p>And our schemas could be defined like this:</p>
-				<pre><code class="language-json">[
-  { &quot;name&quot;: &quot;avg_edu&quot;, &quot;dimensions&quot;: [&quot;age&quot;, &quot;sex&quot;], ... },
-  { &quot;name&quot;: &quot;diff&quot;, &quot;dimensions&quot;: [&quot;age&quot;], ... }
+				<pre><code class="language-javascript">[
+  { <span class="hljs-string">"name"</span>: <span class="hljs-string">"avg_edu"</span>, <span class="hljs-string">"dimensions"</span>: [<span class="hljs-string">"age"</span>, <span class="hljs-string">"sex"</span>], <span class="hljs-comment">/* ... */</span> },
+  { <span class="hljs-string">"name"</span>: <span class="hljs-string">"diff"</span>, <span class="hljs-string">"dimensions"</span>: [<span class="hljs-string">"age"</span>], <span class="hljs-comment">/* ... */</span> }
 ]</code></pre>
 				<p>There are a few things to note here:</p>
 				<ul>
@@ -104,17 +104,17 @@
 					<li>The &quot;age&quot; dimension can be defined once and used in both schemas, since its options are identical in both data sets. If, on the other hand, we needed different age groups in each schema, we&#39;d need to define two separate age group dimensions, one for each schema, and give them distinct names (e.g. &quot;age_avg_edu&quot; and &quot;age_diff&quot;) to distinguish one from the other.</li>
 				</ul>
 				<p>At this point we&#39;ve defined the shapes of both schemas and the dimensions needed to describe them, but the application doesn&#39;t yet have a way to let a user navigate between them. We still need a dimension for selecting between schemas and conditions to describe when each schema is active. Let&#39;s add a metadimension, which we&#39;ll call &quot;measure&quot;:</p>
-				<pre><code class="language-json">[
+				<pre><code class="language-javascript">[
   {
-    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"measure"</span>,
-    <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Measure"</span>,
-    <span class="hljs-attr">"options"</span>: [
-      { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"avg_edu"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Average education"</span> },
-      { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"diff"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Sex difference in education"</span> }
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"measure"</span>,
+    <span class="hljs-string">"display_name"</span>: <span class="hljs-string">"Measure"</span>,
+    <span class="hljs-string">"options"</span>: [
+      { <span class="hljs-string">"name"</span>: <span class="hljs-string">"avg_edu"</span>, <span class="hljs-string">"display_name"</span>: <span class="hljs-string">"Average education"</span> },
+      { <span class="hljs-string">"name"</span>: <span class="hljs-string">"diff"</span>, <span class="hljs-string">"display_name"</span>: <span class="hljs-string">"Sex difference in education"</span> }
     ]
   },
-  { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"age"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Age group"</span>, <span class="hljs-attr">"options"</span>: [<span class="hljs-string">"15-49"</span>, <span class="hljs-string">"20-24"</span>] },
-  { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"sex"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Sex"</span>, <span class="hljs-attr">"options"</span>: [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>] }
+  { <span class="hljs-string">"name"</span>: <span class="hljs-string">"age"</span>, <span class="hljs-string">"display_name"</span>: <span class="hljs-string">"Age group"</span>, <span class="hljs-string">"options"</span>: [<span class="hljs-string">"15-49"</span>, <span class="hljs-string">"20-24"</span>] },
+  { <span class="hljs-string">"name"</span>: <span class="hljs-string">"sex"</span>, <span class="hljs-string">"display_name"</span>: <span class="hljs-string">"Sex"</span>, <span class="hljs-string">"options"</span>: [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>] }
 ]</code></pre>
 				<p>Observations:</p>
 				<ul>
@@ -123,18 +123,18 @@
 					<li>Notice that there&#39;s no difference in the definition of a metadimension versus an ordinary definition. We used the longer form of <code>Option</code> in defining &quot;measure&quot;, but we could have done that for the other dimensions as well. What distinguishes a metadimension is its usage in the schemas&#39; &quot;conditions&quot; property.</li>
 				</ul>
 				<p>Now let&#39;s add conditions to each schema definition:</p>
-				<pre><code class="language-json">[
+				<pre><code class="language-javascript">[
   {
-    &quot;name&quot;: &quot;avg_edu&quot;,
-    &quot;dimensions&quot;: [&quot;age&quot;, &quot;sex&quot;],
-    &quot;conditions&quot;: { &quot;measure&quot;: [&quot;avg_edu&quot;] },
-    ...
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"avg_edu"</span>,
+    <span class="hljs-string">"dimensions"</span>: [<span class="hljs-string">"age"</span>, <span class="hljs-string">"sex"</span>],
+    <span class="hljs-string">"conditions"</span>: { <span class="hljs-string">"measure"</span>: [<span class="hljs-string">"avg_edu"</span>] },
+    <span class="hljs-comment">// ...</span>
   },
   {
-    &quot;name&quot;: &quot;diff&quot;,
-    &quot;dimensions&quot;: [&quot;age&quot;],
-    &quot;conditions&quot;: { &quot;measure&quot;: [&quot;diff&quot;] },
-    ...
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"diff"</span>,
+    <span class="hljs-string">"dimensions"</span>: [<span class="hljs-string">"age"</span>],
+    <span class="hljs-string">"conditions"</span>: { <span class="hljs-string">"measure"</span>: [<span class="hljs-string">"diff"</span>] },
+    <span class="hljs-comment">// ...</span>
   }
 ]</code></pre>
 				<p>This tells the application that if the user has selected &quot;Average education&quot; for the &quot;measure&quot; dimension, it should consider the &quot;avg_edu&quot; schema to be active. It will therefore visualize data from this schema and display UI selectors for the &quot;age&quot; and &quot;sex&quot; dimensions so that the user can navigate within the schema. If, on the other hand, the user selects &quot;Sex difference in education&quot;, the application will make the &quot;diff&quot; schema active. Because this schema only defines one dimension, age group, the UI selector for &quot;sex&quot; will disappear.</p>
