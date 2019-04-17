@@ -18,6 +18,10 @@
     "config.spec.d.ts"
   ],
   "author": "David Schneider <davschne@gmail.com> (github.com/davschne)",
+  "contributors": [
+    "Jim Vermillion <jam.mcmillion@gmail.com> (https://github.com/jimvermillion)",
+    "Evan Laurie (https://github.com/evanl5)"
+  ],
   "license": "BSD-3-Clause",
   "devDependencies": {
     "tslint": "~5.9",
