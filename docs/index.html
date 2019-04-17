@@ -1,0 +1,292 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Choroscope Theme Specification</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Choroscope Theme Specification</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> Choroscope Theme Specification</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="configuration-language-for-choroscope">Configuration language for Choroscope</h1>
+				<p>This repository defines the configuration language for the geospatial data visualization platform Choroscope.</p>
+				<h2 id="themes">Themes</h2>
+				<p>In Choroscope, a data set and the instructions for visualizing that data set are called, collectively, a &quot;theme.&quot; The raw materials for a Choroscope theme include:</p>
+				<ul>
+					<li>files containing the data to be visualized (CSVs and/or GeoTIFFs)</li>
+					<li>files defining the geometry of geographical features used in the visualization (shapefiles)</li>
+					<li>a configuration file, conforming to the rules of this specification, that describes the shape of the data and how it should be visualized (<code>config.json</code>)</li>
+				</ul>
+				<p>The configuration language is based on JSON (JavaScript Object Notation), and the configuration file for a theme must be a JSON file. The specification itself, however, which is defined in the file <code>config.spec.d.ts</code>, is written in TypeScript. TypeScript provides a comprehensive type system for JavaScript (upon which JSON is based) that allows us to describe in code many of the details of the configuration language, and the TypeScript compiler simplifies the process of validating Choroscope config files. For more information about TypeScript, consult the <a href="http://www.typescriptlang.org/docs/home.html">docs</a>.</p>
+				<h2 id="configuration">Configuration</h2>
+				<p>The <code>Config</code> type represents the JSON configuration object as a whole. When browsing the specification for the first time, we recommend you start there before working your way deeper into the hierarchy. The most important properties of the <code>Config</code> object include:</p>
+				<ul>
+					<li><code>name</code>: the name of the theme as represented internally</li>
+					<li><code>display_name</code>: the name of the theme as it will appear to a user of the application</li>
+					<li><code>dimensions</code>: defines the dimensions of your data set; these are the raw materials for describing the shape (or shapes) or your data</li>
+					<li><code>schemas</code>: defines the shape (or shapes) of your data set, using the <code>dimensions</code></li>
+					<li><code>color_scales</code>: defines how to colorize features on the map according to the associated values from your data</li>
+				</ul>
+				<h2 id="multiple-data-shapes-defining-conditions-and-metadimensions">Multiple data shapes: defining conditions and metadimensions</h2>
+				<p>Choroscope supports multiple independent data shapes (&quot;schemas&quot;) within the same theme. To allow a user to navigate between schemas, you&#39;ll need to define one or more dimensions specifically for this purpose. Such &quot;metadimensions&quot; don&#39;t describe the shape of any one schema. Instead, they&#39;re higher-level abstractions used to join your schemas together into a single conceptual decision tree. This tree is what enables the application to determine what to display given any possible combination of dimension options the user may select.</p>
+				<p>For example, let&#39;s say we&#39;re defining a theme to visualize education data by location. We&#39;d like this theme to show both:</p>
+				<ol>
+					<li>average education (in years), broken down by sex and age group</li>
+					<li>the difference in education (in years) between men and women, broken down by age group</li>
+				</ol>
+				<p>This will require defining two schemas. For average education, we&#39;ll need two dimensions, sex and age group. For sex difference in education, however, we&#39;ll only need one dimension, age group. Because this latter data set already represents a comparison by sex, it would make no sense to break down the data further by sex. Our dimensions, then, might be defined as follows:</p>
+				<pre><code class="language-json">[
+  { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"age"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Age group"</span>, <span class="hljs-attr">"options"</span>: [<span class="hljs-string">"15-49"</span>, <span class="hljs-string">"20-24"</span>] },
+  { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"sex"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Sex"</span>, <span class="hljs-attr">"options"</span>: [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>] }
+]</code></pre>
+				<p>And our schemas could be defined like this:</p>
+				<pre><code class="language-json">[
+  { &quot;name&quot;: &quot;avg_edu&quot;, &quot;dimensions&quot;: [&quot;age&quot;, &quot;sex&quot;], ... },
+  { &quot;name&quot;: &quot;diff&quot;, &quot;dimensions&quot;: [&quot;age&quot;], ... }
+]</code></pre>
+				<p>There are a few things to note here:</p>
+				<ul>
+					<li>In the schema definitions, we refer to the dimensions we defined earlier by their &quot;name&quot; property.</li>
+					<li>The &quot;age&quot; dimension can be defined once and used in both schemas, since its options are identical in both data sets. If, on the other hand, we needed different age groups in each schema, we&#39;d need to define two separate age group dimensions, one for each schema, and give them distinct names (e.g. &quot;age_avg_edu&quot; and &quot;age_diff&quot;) to distinguish one from the other.</li>
+				</ul>
+				<p>At this point we&#39;ve defined the shapes of both schemas and the dimensions needed to describe them, but the application doesn&#39;t yet have a way to let a user navigate between them. We still need a dimension for selecting between schemas and conditions to describe when each schema is active. Let&#39;s add a metadimension, which we&#39;ll call &quot;measure&quot;:</p>
+				<pre><code class="language-json">[
+  {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"measure"</span>,
+    <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Measure"</span>,
+    <span class="hljs-attr">"options"</span>: [
+      { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"avg_edu"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Average education"</span> },
+      { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"diff"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Sex difference in education"</span> }
+    ]
+  },
+  { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"age"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Age group"</span>, <span class="hljs-attr">"options"</span>: [<span class="hljs-string">"15-49"</span>, <span class="hljs-string">"20-24"</span>] },
+  { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"sex"</span>, <span class="hljs-attr">"display_name"</span>: <span class="hljs-string">"Sex"</span>, <span class="hljs-attr">"options"</span>: [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>] }
+]</code></pre>
+				<p>Observations:</p>
+				<ul>
+					<li>&quot;measure&quot; defines two options, one for each schema. We&#39;ve named these options identically to the schemas they&#39;re used to select. This is not strictly required, but it helps to make the purpose of &quot;measure&quot; easier to understand.</li>
+					<li>We&#39;ve used the longer, more verbose format for defining the options (type <code>Option</code> in the specification). This allows us to specify the (unique) internal name and the name used for display separately.</li>
+					<li>Notice that there&#39;s no difference in the definition of a metadimension versus an ordinary definition. We used the longer form of <code>Option</code> in defining &quot;measure&quot;, but we could have done that for the other dimensions as well. What distinguishes a metadimension is its usage in the schemas&#39; &quot;conditions&quot; property.</li>
+				</ul>
+				<p>Now let&#39;s add conditions to each schema definition:</p>
+				<pre><code class="language-json">[
+  {
+    &quot;name&quot;: &quot;avg_edu&quot;,
+    &quot;dimensions&quot;: [&quot;age&quot;, &quot;sex&quot;],
+    &quot;conditions&quot;: { &quot;measure&quot;: [&quot;avg_edu&quot;] },
+    ...
+  },
+  {
+    &quot;name&quot;: &quot;diff&quot;,
+    &quot;dimensions&quot;: [&quot;age&quot;],
+    &quot;conditions&quot;: { &quot;measure&quot;: [&quot;diff&quot;] },
+    ...
+  }
+]</code></pre>
+				<p>This tells the application that if the user has selected &quot;Average education&quot; for the &quot;measure&quot; dimension, it should consider the &quot;avg_edu&quot; schema to be active. It will therefore visualize data from this schema and display UI selectors for the &quot;age&quot; and &quot;sex&quot; dimensions so that the user can navigate within the schema. If, on the other hand, the user selects &quot;Sex difference in education&quot;, the application will make the &quot;diff&quot; schema active. Because this schema only defines one dimension, age group, the UI selector for &quot;sex&quot; will disappear.</p>
+				<p>This is quite a simple example, but more complicated structures can be defined as well. Note that:</p>
+				<ul>
+					<li>It&#39;s possible to define multiple metadimensions. This is sometimes useful for creating logical hierarchies.</li>
+					<li>Each schema can define multiple conditions; indeed this is required if multiple metadimensions are used. We can specify additional conditions simply by adding more keys (referencing other metadimensions) to the <code>Conditions</code> object, e.g.: <code>{ &quot;measure&quot;: [&quot;avg_edu&quot;], &quot;another_dimension&quot;: [&quot;some_option&quot;] }</code>.</li>
+					<li>Each condition can be satisfied by multiple options from the dimension in question. We specify this by adding additional options to the array in the <code>Conditions</code> object, e.g.: <code>{ &quot;measure&quot;: [&quot;avg_edu&quot;, &quot;another_option&quot;] }</code>.</li>
+				</ul>
+				<h2 id="color-scale-conditions">Color scale conditions</h2>
+				<p>The same &quot;conditions&quot; semantics are used for specifying when a given color scale should be active. Often there&#39;s a one-to-one correspondence between a given schema and a color scale used to visualize it. This is not a requirement, though. Technically, color scale conditions are fully independent from schema conditions.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/barchart.html" class="tsd-kind-icon">Bar<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/colorscale.html" class="tsd-kind-icon">Color<wbr>Scale</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/colorstop.html" class="tsd-kind-icon">Color<wbr>Stop</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/conditions.html" class="tsd-kind-icon">Conditions</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/config.html" class="tsd-kind-icon">Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/customlegend.html" class="tsd-kind-icon">Custom<wbr>Legend</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/dataformat.html" class="tsd-kind-icon">Data<wbr>Format</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/defaultdisplay.html" class="tsd-kind-icon">Default<wbr>Display</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/dimension.html" class="tsd-kind-icon">Dimension</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/geography.html" class="tsd-kind-icon">Geography</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/linechart.html" class="tsd-kind-icon">Line<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/lineconfig.html" class="tsd-kind-icon">Line<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/option.html" class="tsd-kind-icon">Option</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/scaling.html" class="tsd-kind-icon">Scaling</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/scalingbyadmin.html" class="tsd-kind-icon">Scaling<wbr>ByAdmin</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/schema.html" class="tsd-kind-icon">Schema</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sentinelvalue.html" class="tsd-kind-icon">Sentinel<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/valuesdisplay.html" class="tsd-kind-icon">Values<wbr>Display</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#adminlevel" class="tsd-kind-icon">Admin<wbr>Level</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#infodisplay" class="tsd-kind-icon">Info<wbr>Display</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

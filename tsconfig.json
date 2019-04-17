@@ -2,5 +2,6 @@
   "compilerOptions": {
     "noEmit": true,
     "strict": true,
+    "lib": ["es2015"]
   }
 }
