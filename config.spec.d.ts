@@ -428,6 +428,51 @@ export interface BarChart {
    * charts); references [[Dimension.name]]
    */
   "subcategory_dimension"?: string;
+
+  /**
+   * Display data from a schema other than the currently selected schema.
+   *
+   * If this field is not supplied, the current schema will be queried.
+   */
+  "cross_schema"?: CrossSchema;
+}
+
+export interface CrossSchema {
+  /**
+   * Name of the schema to query; references [[Schema.name]]
+   */
+  "name": string;
+
+  /**
+   * For each dimension of the schema, the option that will be used in the query. Any dimension
+   * in common between the current schema and the schema to be queried may be omitted from the
+   * filter. In that case, the currently selected option for the dimension will be used for the
+   * query.
+   *
+   * For a bar chart, the dimensions used as [[BarChart.category_dimension]] and
+   * [[BarChart.subcategory_dimension]], if applicable, should be omitted from the filter.
+   *
+   * For a line chart, the dimensions used as [[LineChart.domain]] and
+   * [[LineConfig.expand_dimension]], if applicable, should be omitted from the filter.
+   *
+   * This field may be omitted entirely if there aren't any dimensions to filter.
+   */
+  "dimension_filter"?: DimensionFilter;
+}
+
+/**
+ * The option value for each dimension that should be used in a cross-schema query
+ *
+ * When querying the current schema, it's straightforward to determine which options to use, namely,
+ * the currently selected options. When querying a schema other than the active schema, though, we
+ * need to supply these options explicitly.
+ */
+export interface DimensionFilter {
+  /**
+   * Mapping of dimension name (referencing [[Dimension.name]]) to the corresponding option
+   * (referencing [[Option.name]]) to use in the query
+   */
+  [dimensionName: string]: string | number;
 }
 
 /**
@@ -496,6 +541,13 @@ export interface LineConfig {
    * of a shaded area; references [[Option.name]]
    */
   "lower"?: string | number;
+
+  /**
+   * Display data from a schema other than the currently selected schema.
+   *
+   * If this field is not supplied, the current schema will be queried.
+   */
+  "cross_schema"?: CrossSchema;
 }
 
 /**
