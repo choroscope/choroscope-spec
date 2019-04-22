@@ -269,13 +269,13 @@ export interface Dimension {
  */
 export interface Option {
   /**
-   * unique identifier (unique for the current dimension, that is) used to represent the option
+   * Unique identifier (unique for the current dimension, that is) used to represent the option
    * internally in the program and in the config file (like in [[Conditions]])
    */
   "name": string;
 
   /**
-   * the name shown to the user in the application
+   * Name shown to the user in the application
    */
   "display_name": string;
 }
@@ -679,7 +679,7 @@ export interface CustomLegend {
  */
 export interface Conditions {
   /**
-   * Mapping from a dimension name to a subset of its options (referencing `Option.name`) for which
+   * Mapping from a dimension name to a subset of its options (referencing [[Option.name]]) for which
    * the schema or color scale is active
    *
    * The condition is satisfied if for each dimension specified, the currently selected option is
