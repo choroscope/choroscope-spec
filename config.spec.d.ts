@@ -416,6 +416,11 @@ export interface BarChart {
   "type": "bar_chart";
 
   /**
+   * Text label to show above the chart
+   */
+  "label"?: string;
+
+  /**
    * Dimension whose options comprise the categories in the bar chart; references [[Dimension.name]]
    *
    * In a normal bar chart, each category is represented by a single bar.
@@ -480,6 +485,11 @@ export interface DimensionFilter {
  */
 export interface LineChart {
   "type": "line_chart";
+
+  /**
+   * Text label to show above the chart
+   */
+  "label"?: string;
 
   /**
    * Dimension to show as the domain of the chart; references [[Dimension.name]]
