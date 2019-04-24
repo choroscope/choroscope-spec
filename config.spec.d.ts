@@ -452,8 +452,8 @@ export interface CrossSchema {
    * For a bar chart, the dimensions used as [[BarChart.category_dimension]] and
    * [[BarChart.subcategory_dimension]], if applicable, should be omitted from the filter.
    *
-   * For a line chart, the dimensions used as [[LineChart.domain]] and
-   * [[LineConfig.expand_dimension]], if applicable, should be omitted from the filter.
+   * For a line chart, the dimensions used as [[LineChart.domain]], [[LineChart.split_dimension]],
+   * and [[Area.expand_dimension]], if applicable, should be omitted from the filter.
    *
    * This field may be omitted entirely if there aren't any dimensions to filter.
    */
@@ -487,35 +487,43 @@ export interface LineChart {
   "domain": string;
 
   /**
-   * Configuration for one or more lines (or areas) to display on the chart
-   *
-   * If none are specified, we graph a single line representing the values for each option of the
-   * `domain` dimension.
+   * Dimension whose options will be rendered as separate lines (and/or areas); references
+   * [[Dimension.name]]. If not provided, only a single line/area will be rendered.
    */
-  "lines"?: LineConfig[];
+  "split_dimension"?: string;
+
+  /**
+   * Configures the chart to display a shaded area instead of (or in addition to) a line. This can
+   * be useful for showing a range or interval, like a statistical uncertainty interval.
+   */
+  "area"?: Area;
+
+  /**
+   * Display data from a schema other than the currently selected schema.
+   *
+   * The schema indicated must include the dimensions referenced as `domain` and `split_dimension`,
+   * if applicable. If this
+   * field is not supplied, the current schema will be queried.
+   */
+  "cross_schema"?: CrossSchema;
 }
 
 /**
- * Configuration for a line and/or area to display on a line chart
- *
- * `LineConfig` allows fine-grained control over the line chart, including:
- * - showing a shaded area instead of (or in addition to) a line
- * - showing multiple lines (or shaded areas) on the same chart, by specifying multiple `LineConfig`s
+ * Configuration for a displaying a shaded area on the chart, instead of (or in addition to) a line
  *
  * `expand_dimension` designates a dimension of the schema that we'll pick apart, visualizing one or
  * more of its `options` as a line or shaded area. It doesn't matter whether or not the map view
  * is currently visualizing the option in question; we can still show it in the line chart.
  *
- * We draw a line by referencing a single option of the `expand_dimension` with the `line` property.
- *
  * We draw a shaded area by referencing two options of the `expand_dimension` as the `upper` and
  * `lower` properties. To be more precise, we draw two lines (one for `upper` and one for `lower`),
- * and we shade the area in between. This can be useful for showing a range or interval, like a
- * statistical uncertainty interval.
+ * and we shade the area in between.
  *
- * It's an error to define only `upper` or only `lower`. If one is specified, both must be specified.
+ * In addition to the shaded area, we can optionally draw a line by referencing a single option of
+ * the `expand_dimension` with the `line` property. Note that if _only_ a line is desired (with no
+ * shaded area), `Area` is not needed at all.
  */
-export interface LineConfig {
+export interface Area {
   /**
    * Dimension of the schema whose options are referenced in the `line`, `upper`, and/or `lower`
    * properties
@@ -534,20 +542,13 @@ export interface LineConfig {
    * Option from the `expand_dimension` for which the application should render the upper bound
    * of a shaded area; references [[Option.name]]
    */
-  "upper"?: string | number;
+  "upper": string | number;
 
   /**
    * Option from the `expand_dimension` for which the application should render the lower bound
    * of a shaded area; references [[Option.name]]
    */
-  "lower"?: string | number;
-
-  /**
-   * Display data from a schema other than the currently selected schema.
-   *
-   * If this field is not supplied, the current schema will be queried.
-   */
-  "cross_schema"?: CrossSchema;
+  "lower": string | number;
 }
 
 /**
