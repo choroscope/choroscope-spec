@@ -86,8 +86,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="linechart.html#area" class="tsd-kind-icon">area</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="linechart.html#cross_schema" class="tsd-kind-icon">cross_<wbr>schema</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="linechart.html#domain" class="tsd-kind-icon">domain</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="linechart.html#lines" class="tsd-kind-icon">lines</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="linechart.html#label" class="tsd-kind-icon">label</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="linechart.html#split_dimension" class="tsd-kind-icon">split_<wbr>dimension</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="linechart.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
@@ -97,12 +100,46 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="area" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> area</h3>
+					<div class="tsd-signature tsd-kind-icon">area<span class="tsd-signature-symbol">:</span> <a href="area.html" class="tsd-signature-type">Area</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in config.spec.d.ts:509</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Configures the chart to display a shaded area instead of (or in addition to) a line. This can
+							be useful for showing a range or interval, like a statistical uncertainty interval.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="cross_schema" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cross_<wbr>schema</h3>
+					<div class="tsd-signature tsd-kind-icon">cross_<wbr>schema<span class="tsd-signature-symbol">:</span> <a href="crossschema.html" class="tsd-signature-type">CrossSchema</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in config.spec.d.ts:518</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Display data from a schema other than the currently selected schema.</p>
+						</div>
+						<p>The schema indicated must include the dimensions referenced as <code>domain</code> and <code>split_dimension</code>,
+							if applicable. If this
+						field is not supplied, the current schema will be queried.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="domain" class="tsd-anchor"></a>
 					<h3>domain</h3>
 					<div class="tsd-signature tsd-kind-icon">domain<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/ec7c29e/config.spec.d.ts#L442">config.spec.d.ts:442</a></li>
+							<li>Defined in config.spec.d.ts:497</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -112,20 +149,34 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="lines" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> lines</h3>
-					<div class="tsd-signature tsd-kind-icon">lines<span class="tsd-signature-symbol">:</span> <a href="lineconfig.html" class="tsd-signature-type">LineConfig</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="label" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> label</h3>
+					<div class="tsd-signature tsd-kind-icon">label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/ec7c29e/config.spec.d.ts#L450">config.spec.d.ts:450</a></li>
+							<li>Defined in config.spec.d.ts:492</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Configuration for one or more lines (or areas) to display on the chart</p>
+							<p>Text label to show above the chart</p>
 						</div>
-						<p>If none are specified, we graph a single line representing the values for each option of the
-						<code>domain</code> dimension.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="split_dimension" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> split_<wbr>dimension</h3>
+					<div class="tsd-signature tsd-kind-icon">split_<wbr>dimension<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in config.spec.d.ts:503</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Dimension whose options will be rendered as separate lines (and/or areas); references
+							<a href="dimension.html#name">Dimension.name</a>. If not provided, only a single line/area will be rendered.</p>
+						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -134,7 +185,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"line_chart"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/ec7c29e/config.spec.d.ts#L437">config.spec.d.ts:437</a></li>
+							<li>Defined in config.spec.d.ts:487</li>
 						</ul>
 					</aside>
 				</section>
@@ -151,6 +202,9 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface">
+						<a href="area.html" class="tsd-kind-icon">Area</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="barchart.html" class="tsd-kind-icon">Bar<wbr>Chart</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -166,6 +220,9 @@
 						<a href="config.html" class="tsd-kind-icon">Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="crossschema.html" class="tsd-kind-icon">Cross<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="customlegend.html" class="tsd-kind-icon">Custom<wbr>Legend</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -178,6 +235,9 @@
 						<a href="dimension.html" class="tsd-kind-icon">Dimension</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="dimensionfilter.html" class="tsd-kind-icon">Dimension<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="geography.html" class="tsd-kind-icon">Geography</a>
 					</li>
 				</ul>
@@ -186,10 +246,19 @@
 						<a href="linechart.html" class="tsd-kind-icon">Line<wbr>Chart</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="linechart.html#area" class="tsd-kind-icon">area</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="linechart.html#cross_schema" class="tsd-kind-icon">cross_<wbr>schema</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="linechart.html#domain" class="tsd-kind-icon">domain</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="linechart.html#lines" class="tsd-kind-icon">lines</a>
+								<a href="linechart.html#label" class="tsd-kind-icon">label</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="linechart.html#split_dimension" class="tsd-kind-icon">split_<wbr>dimension</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="linechart.html#type" class="tsd-kind-icon">type</a>
@@ -198,9 +267,6 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="lineconfig.html" class="tsd-kind-icon">Line<wbr>Config</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="option.html" class="tsd-kind-icon">Option</a>
 					</li>
