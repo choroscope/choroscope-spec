@@ -571,10 +571,23 @@ export interface ValuesDisplay {
   "type": "values";
 
   /**
+   * Text label to show above the display
+   */
+  "label"?: string;
+
+  /**
    * Show the value not just for the currently selected option but for ALL options of the given
    * dimension (references [[Dimension.name]])
    */
   "expand_dimension"?: string;
+
+  /**
+   * Display data from a schema other than the currently selected schema.
+   *
+   * The schema indicated must include the dimension referenced as `expand_dimension`, if
+   * applicable. If this field is not supplied, the current schema will be queried.
+   */
+  "cross_schema"?: CrossSchema;
 }
 
 /**
