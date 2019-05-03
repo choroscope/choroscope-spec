@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DataFormat | Choroscope Theme Specification</title>
+	<title>Area | Choroscope Theme Specification</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="dataformat.html">DataFormat</a>
+					<a href="area.html">Area</a>
 				</li>
 			</ul>
-			<h1>Interface DataFormat</h1>
+			<h1>Interface Area</h1>
 		</div>
 	</div>
 </header>
@@ -67,15 +67,24 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Details of the data representation</p>
+						<p>Configuration for a displaying a shaded area on the chart, instead of (or in addition to) a line</p>
 					</div>
+					<p><code>expand_dimension</code> designates a dimension of the schema that we&#39;ll pick apart, visualizing one or
+						more of its <code>options</code> as a line or shaded area. It doesn&#39;t matter whether or not the map view
+					is currently visualizing the option in question; we can still show it in the line chart.</p>
+					<p>We draw a shaded area by referencing two options of the <code>expand_dimension</code> as the <code>upper</code> and
+						<code>lower</code> properties. To be more precise, we draw two lines (one for <code>upper</code> and one for <code>lower</code>),
+					and we shade the area in between.</p>
+					<p>In addition to the shaded area, we can optionally draw a line by referencing a single option of
+						the <code>expand_dimension</code> with the <code>line</code> property. Note that if <em>only</em> a line is desired (with no
+					shaded area), <code>Area</code> is not needed at all.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">DataFormat</span>
+						<span class="target">Area</span>
 					</li>
 				</ul>
 			</section>
@@ -86,12 +95,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="dataformat.html#aggregate" class="tsd-kind-icon">aggregate</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="dataformat.html#max_admin_level" class="tsd-kind-icon">max_<wbr>admin_<wbr>level</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="dataformat.html#native_zoom" class="tsd-kind-icon">native_<wbr>zoom</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="dataformat.html#no_data_value" class="tsd-kind-icon">no_<wbr>data_<wbr>value</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="dataformat.html#precision_aggregate" class="tsd-kind-icon">precision_<wbr>aggregate</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="dataformat.html#raster" class="tsd-kind-icon">raster</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="area.html#expand_dimension" class="tsd-kind-icon">expand_<wbr>dimension</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="area.html#line" class="tsd-kind-icon">line</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="area.html#lower" class="tsd-kind-icon">lower</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="area.html#upper" class="tsd-kind-icon">upper</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,105 +107,67 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="aggregate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> aggregate</h3>
-					<div class="tsd-signature tsd-kind-icon">aggregate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
+					<a name="expand_dimension" class="tsd-anchor"></a>
+					<h3>expand_<wbr>dimension</h3>
+					<div class="tsd-signature tsd-kind-icon">expand_<wbr>dimension<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L101">config.spec.d.ts:101</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L543">config.spec.d.ts:543</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Enable visualization of aggregate data? default: true</p>
+							<p>Dimension of the schema whose options are referenced in the <code>line</code>, <code>upper</code>, and/or <code>lower</code>
+							properties</p>
+						</div>
+						<p>The dimension is referenced via <a href="dimension.html#name">Dimension.name</a>, as defined in <a href="config.html#dimensions">Config.dimensions</a>.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="line" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> line</h3>
+					<div class="tsd-signature tsd-kind-icon">line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L549">config.spec.d.ts:549</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Option from the <code>expand_dimension</code> for which the application should render a line; references
+							<a href="option.html#name">Option.name</a></p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="max_admin_level" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> max_<wbr>admin_<wbr>level</h3>
-					<div class="tsd-signature tsd-kind-icon">max_<wbr>admin_<wbr>level<span class="tsd-signature-symbol">:</span> <a href="../globals.html#adminlevel" class="tsd-signature-type">AdminLevel</a></div>
+					<a name="lower" class="tsd-anchor"></a>
+					<h3>lower</h3>
+					<div class="tsd-signature tsd-kind-icon">lower<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L137">config.spec.d.ts:137</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L561">config.spec.d.ts:561</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Maximum (i.e. most detailed) admin level available; default: 2</p>
+							<p>Option from the <code>expand_dimension</code> for which the application should render the lower bound
+							of a shaded area; references <a href="option.html#name">Option.name</a></p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="native_zoom" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> native_<wbr>zoom</h3>
-					<div class="tsd-signature tsd-kind-icon">native_<wbr>zoom<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<a name="upper" class="tsd-anchor"></a>
+					<h3>upper</h3>
+					<div class="tsd-signature tsd-kind-icon">upper<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L132">config.spec.d.ts:132</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L555">config.spec.d.ts:555</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Zoom level represented by the source raster images, based on standard Google-style map tiling
-							(see: <a href="http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/">http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/</a>)</p>
-						</div>
-						<p>default: 5</p>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="no_data_value" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> no_<wbr>data_<wbr>value</h3>
-					<div class="tsd-signature tsd-kind-icon">no_<wbr>data_<wbr>value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L124">config.spec.d.ts:124</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Numeric value in TIFF files that indicates the absence of data for a given pixel</p>
-						</div>
-						<p>default: -999999</p>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="precision_aggregate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> precision_<wbr>aggregate</h3>
-					<div class="tsd-signature tsd-kind-icon">precision_<wbr>aggregate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"single"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"double"</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L117">config.spec.d.ts:117</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Low-level floating-point representation of aggregate data values:</p>
-							<ul>
-								<li>&quot;single&quot;: 32-bit</li>
-								<li>&quot;double&quot;: 64-bit</li>
-							</ul>
-						</div>
-						<p>In most cases, single precision should be sufficient; it provides seven to eight significant
-							digits. In case more significant digits are needed, double precision can be used instead, but
-						note that using double precision may result in a database that is significantly larger.</p>
-						<p>NB: Because of the technical limitations of rendering pixels in the application, we always use
-						a 32-bit representation for raster data.</p>
-						<p>default: &quot;single&quot;</p>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="raster" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> raster</h3>
-					<div class="tsd-signature tsd-kind-icon">raster<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L96">config.spec.d.ts:96</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Enable visualization of raster data? default: true</p>
+							<p>Option from the <code>expand_dimension</code> for which the application should render the upper bound
+							of a shaded area; references <a href="option.html#name">Option.name</a></p>
 						</div>
 					</div>
 				</section>
@@ -214,9 +183,27 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
 						<a href="area.html" class="tsd-kind-icon">Area</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="area.html#expand_dimension" class="tsd-kind-icon">expand_<wbr>dimension</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="area.html#line" class="tsd-kind-icon">line</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="area.html#lower" class="tsd-kind-icon">lower</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="area.html#upper" class="tsd-kind-icon">upper</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="barchart.html" class="tsd-kind-icon">Bar<wbr>Chart</a>
 					</li>
@@ -238,33 +225,9 @@
 					<li class=" tsd-kind-interface">
 						<a href="customlegend.html" class="tsd-kind-icon">Custom<wbr>Legend</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="dataformat.html" class="tsd-kind-icon">Data<wbr>Format</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="dataformat.html#aggregate" class="tsd-kind-icon">aggregate</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="dataformat.html#max_admin_level" class="tsd-kind-icon">max_<wbr>admin_<wbr>level</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="dataformat.html#native_zoom" class="tsd-kind-icon">native_<wbr>zoom</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="dataformat.html#no_data_value" class="tsd-kind-icon">no_<wbr>data_<wbr>value</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="dataformat.html#precision_aggregate" class="tsd-kind-icon">precision_<wbr>aggregate</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="dataformat.html#raster" class="tsd-kind-icon">raster</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="defaultdisplay.html" class="tsd-kind-icon">Default<wbr>Display</a>
 					</li>

@@ -87,6 +87,8 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="barchart.html#category_dimension" class="tsd-kind-icon">category_<wbr>dimension</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="barchart.html#cross_schema" class="tsd-kind-icon">cross_<wbr>schema</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="barchart.html#label" class="tsd-kind-icon">label</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="barchart.html#subcategory_dimension" class="tsd-kind-icon">subcategory_<wbr>dimension</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="barchart.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
@@ -102,7 +104,7 @@
 					<div class="tsd-signature tsd-kind-icon">category_<wbr>dimension<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/ec7c29e/config.spec.d.ts#L424">config.spec.d.ts:424</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L429">config.spec.d.ts:429</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -114,12 +116,43 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="cross_schema" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cross_<wbr>schema</h3>
+					<div class="tsd-signature tsd-kind-icon">cross_<wbr>schema<span class="tsd-signature-symbol">:</span> <a href="crossschema.html" class="tsd-signature-type">CrossSchema</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L442">config.spec.d.ts:442</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Display data from a schema other than the currently selected schema.</p>
+						</div>
+						<p>If this field is not supplied, the current schema will be queried.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="label" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> label</h3>
+					<div class="tsd-signature tsd-kind-icon">label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L421">config.spec.d.ts:421</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Text label to show above the chart</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="subcategory_dimension" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> subcategory_<wbr>dimension</h3>
 					<div class="tsd-signature tsd-kind-icon">subcategory_<wbr>dimension<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/ec7c29e/config.spec.d.ts#L430">config.spec.d.ts:430</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L435">config.spec.d.ts:435</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -135,7 +168,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"bar_chart"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/ec7c29e/config.spec.d.ts#L416">config.spec.d.ts:416</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/1049845/config.spec.d.ts#L416">config.spec.d.ts:416</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -151,6 +184,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface">
+						<a href="area.html" class="tsd-kind-icon">Area</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
@@ -158,6 +194,12 @@
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="barchart.html#category_dimension" class="tsd-kind-icon">category_<wbr>dimension</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="barchart.html#cross_schema" class="tsd-kind-icon">cross_<wbr>schema</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="barchart.html#label" class="tsd-kind-icon">label</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="barchart.html#subcategory_dimension" class="tsd-kind-icon">subcategory_<wbr>dimension</a>
@@ -182,6 +224,9 @@
 						<a href="config.html" class="tsd-kind-icon">Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="crossschema.html" class="tsd-kind-icon">Cross<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="customlegend.html" class="tsd-kind-icon">Custom<wbr>Legend</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -194,13 +239,13 @@
 						<a href="dimension.html" class="tsd-kind-icon">Dimension</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="dimensionfilter.html" class="tsd-kind-icon">Dimension<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="geography.html" class="tsd-kind-icon">Geography</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="linechart.html" class="tsd-kind-icon">Line<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="lineconfig.html" class="tsd-kind-icon">Line<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="option.html" class="tsd-kind-icon">Option</a>

@@ -269,13 +269,13 @@ export interface Dimension {
  */
 export interface Option {
   /**
-   * unique identifier (unique for the current dimension, that is) used to represent the option
+   * Unique identifier (unique for the current dimension, that is) used to represent the option
    * internally in the program and in the config file (like in [[Conditions]])
    */
   "name": string;
 
   /**
-   * the name shown to the user in the application
+   * Name shown to the user in the application
    */
   "display_name": string;
 }
@@ -416,6 +416,11 @@ export interface BarChart {
   "type": "bar_chart";
 
   /**
+   * Text label to show above the chart
+   */
+  "label"?: string;
+
+  /**
    * Dimension whose options comprise the categories in the bar chart; references [[Dimension.name]]
    *
    * In a normal bar chart, each category is represented by a single bar.
@@ -428,6 +433,51 @@ export interface BarChart {
    * charts); references [[Dimension.name]]
    */
   "subcategory_dimension"?: string;
+
+  /**
+   * Display data from a schema other than the currently selected schema.
+   *
+   * If this field is not supplied, the current schema will be queried.
+   */
+  "cross_schema"?: CrossSchema;
+}
+
+export interface CrossSchema {
+  /**
+   * Name of the schema to query; references [[Schema.name]]
+   */
+  "name": string;
+
+  /**
+   * For each dimension of the schema, the option that will be used in the query. Any dimension
+   * in common between the current schema and the schema to be queried may be omitted from the
+   * filter. In that case, the currently selected option for the dimension will be used for the
+   * query.
+   *
+   * For a bar chart, the dimensions used as [[BarChart.category_dimension]] and
+   * [[BarChart.subcategory_dimension]], if applicable, should be omitted from the filter.
+   *
+   * For a line chart, the dimensions used as [[LineChart.domain]], [[LineChart.split_dimension]],
+   * and [[Area.expand_dimension]], if applicable, should be omitted from the filter.
+   *
+   * This field may be omitted entirely if there aren't any dimensions to filter.
+   */
+  "dimension_filter"?: DimensionFilter;
+}
+
+/**
+ * The option value for each dimension that should be used in a cross-schema query
+ *
+ * When querying the current schema, it's straightforward to determine which options to use, namely,
+ * the currently selected options. When querying a schema other than the active schema, though, we
+ * need to supply these options explicitly.
+ */
+export interface DimensionFilter {
+  /**
+   * Mapping of dimension name (referencing [[Dimension.name]]) to the corresponding option
+   * (referencing [[Option.name]]) to use in the query
+   */
+  [dimensionName: string]: string | number;
 }
 
 /**
@@ -437,40 +487,53 @@ export interface LineChart {
   "type": "line_chart";
 
   /**
+   * Text label to show above the chart
+   */
+  "label"?: string;
+
+  /**
    * Dimension to show as the domain of the chart; references [[Dimension.name]]
    */
   "domain": string;
 
   /**
-   * Configuration for one or more lines (or areas) to display on the chart
-   *
-   * If none are specified, we graph a single line representing the values for each option of the
-   * `domain` dimension.
+   * Dimension whose options will be rendered as separate lines (and/or areas); references
+   * [[Dimension.name]]. If not provided, only a single line/area will be rendered.
    */
-  "lines"?: LineConfig[];
+  "split_dimension"?: string;
+
+  /**
+   * Configures the chart to display a shaded area instead of (or in addition to) a line. This can
+   * be useful for showing a range or interval, like a statistical uncertainty interval.
+   */
+  "area"?: Area;
+
+  /**
+   * Display data from a schema other than the currently selected schema.
+   *
+   * The schema indicated must include the dimensions referenced as `domain` and `split_dimension`,
+   * if applicable. If this
+   * field is not supplied, the current schema will be queried.
+   */
+  "cross_schema"?: CrossSchema;
 }
 
 /**
- * Configuration for a line and/or area to display on a line chart
- *
- * `LineConfig` allows fine-grained control over the line chart, including:
- * - showing a shaded area instead of (or in addition to) a line
- * - showing multiple lines (or shaded areas) on the same chart, by specifying multiple `LineConfig`s
+ * Configuration for a displaying a shaded area on the chart, instead of (or in addition to) a line
  *
  * `expand_dimension` designates a dimension of the schema that we'll pick apart, visualizing one or
  * more of its `options` as a line or shaded area. It doesn't matter whether or not the map view
  * is currently visualizing the option in question; we can still show it in the line chart.
  *
- * We draw a line by referencing a single option of the `expand_dimension` with the `line` property.
- *
  * We draw a shaded area by referencing two options of the `expand_dimension` as the `upper` and
  * `lower` properties. To be more precise, we draw two lines (one for `upper` and one for `lower`),
- * and we shade the area in between. This can be useful for showing a range or interval, like a
- * statistical uncertainty interval.
+ * and we shade the area in between.
  *
- * It's an error to define only `upper` or only `lower`. If one is specified, both must be specified.
+ * In addition to the shaded area, we can optionally draw a line by referencing a single option of
+ * the `expand_dimension` with the `line` property. Note that if _only_ a line is desired (with no
+ * shaded area), `Area` is not needed at all.
  */
-export interface LineConfig {
+export interface Area {
   /**
    * Dimension of the schema whose options are referenced in the `line`, `upper`, and/or `lower`
    * properties
@@ -489,13 +552,13 @@ export interface LineConfig {
    * Option from the `expand_dimension` for which the application should render the upper bound
    * of a shaded area; references [[Option.name]]
    */
-  "upper"?: string | number;
+  "upper": string | number;
 
   /**
    * Option from the `expand_dimension` for which the application should render the lower bound
    * of a shaded area; references [[Option.name]]
    */
-  "lower"?: string | number;
+  "lower": string | number;
 }
 
 /**
@@ -508,10 +571,23 @@ export interface ValuesDisplay {
   "type": "values";
 
   /**
+   * Text label to show above the display
+   */
+  "label"?: string;
+
+  /**
    * Show the value not just for the currently selected option but for ALL options of the given
    * dimension (references [[Dimension.name]])
    */
   "expand_dimension"?: string;
+
+  /**
+   * Display data from a schema other than the currently selected schema.
+   *
+   * The schema indicated must include the dimension referenced as `expand_dimension`, if
+   * applicable. If this field is not supplied, the current schema will be queried.
+   */
+  "cross_schema"?: CrossSchema;
 }
 
 /**
@@ -679,7 +755,7 @@ export interface CustomLegend {
  */
 export interface Conditions {
   /**
-   * Mapping from a dimension name to a subset of its options (referencing `Option.name`) for which
+   * Mapping from a dimension name to a subset of its options (referencing [[Option.name]]) for which
    * the schema or color scale is active
    *
    * The condition is satisfied if for each dimension specified, the currently selected option is
