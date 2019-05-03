@@ -1,6 +1,6 @@
 {
   "name": "choroscope-spec",
-  "version": "2.0.0-pre.2",
+  "version": "2.0.0",
   "description": "Configuration language specification for Choroscope",
   "types": "config.spec.d.ts",
   "scripts": {
