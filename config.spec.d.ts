@@ -188,6 +188,112 @@ export interface Geography {
    * List of location IDs for which no aggregate data is available
    */
   "exclude_aggregate"?: number[];
+
+  /**
+   * Show territorial disputes between countries? If `true`, a file containing the geometries of the
+   * disputed areas must be provided.
+   *
+   * default: true
+   */
+  "territorial_disputes"?: boolean;
+
+  /**
+   * Configuration for the shapefiles containing the geometries of administrative units
+   */
+  "admin_files"?: AdminFiles;
+
+  /**
+   * Configuration for the shapefile containing the geometries of disputed areas
+   */
+  "disputes_file"?: DisputesFile;
+}
+
+/**
+ * Configuration for the shapefiles containing the geometries of administrative units
+ */
+export interface AdminFiles {
+  /**
+   * Relative paths to the administrative shapefiles.
+   *
+   * The index in the array corresponds to the admin level, so the first item represents admin0, the
+   * second admin1, etc.
+   *
+   * default:
+   * ```json
+   * ["shapefiles/admin{N}/admin{N}.shp", ...]
+   * ```
+   * where {N} represents each admin level from 0 up to the max admin level
+   */
+  "filepaths"?: string[];
+
+  /**
+   * Names of the metadata fields for each feature in the administrative shapefiles
+   *
+   * The index in the array corresponds to the admin level, so the first item represents fields for
+   * admin0, the second fields for admin1, etc.
+   *
+   * default:
+   * ```json
+   * [
+   *   { "id": "ADM{N}_CODE", "name": "ADM{N}_NAME" },
+   *   ...
+   * ]
+   * ```
+   * where {N} represents each admin level from 0 up to the max admin level
+   */
+  "fieldnames"?: AdminFieldnames[];
+}
+
+/**
+ * Configuration for the shapefile containing the geometries of disputed areas
+ */
+export interface DisputesFile {
+  /**
+   * Relative path to the disputes shapefile
+   *
+   * default: "shapefiles/disputes/disputes.shp"
+   */
+  "filepath"?: string;
+
+  /**
+   * Names of the metadata fields for each feature in the disputes shapefile
+   *
+   * default:
+   * ```json
+   * {
+   *   "id": "ADM0_CODE",
+   *   "name": "ADM0_NAME",
+   *   "claimants": "claimants",
+   * }
+   * ```
+   */
+  "fieldnames"?: DisputesFieldnames;
+}
+
+/**
+ * Names of the metadata fields for each feature in the shapefiles containing administrative units
+ */
+export interface AdminFieldnames {
+  /**
+   * Name of the field containing the unique ID of the feature
+   */
+  "id": string;
+
+  /**
+   * Name of the field containing the name of the feature
+   */
+  "name": string;
+}
+
+/**
+ * Names of the metadata fields for each feature in the shapefile containing disputed territories
+ */
+export interface DisputesFieldnames extends AdminFieldnames {
+  /**
+   * Name of the field containing the unique IDs of the countries (admin0 locations) that claim the
+   * disputed area (as a comma-separated list)
+   */
+  "claimants": string;
 }
 
 /**
