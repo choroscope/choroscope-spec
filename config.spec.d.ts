@@ -354,6 +354,8 @@ export interface Schema {
    */
   "filepath_template_raster"?: string;
 
+  "disabled_mode"?: "geo" | "aggregate";
+
   /**
    * Template representing the title text to display to the user when this schema is active
    *
