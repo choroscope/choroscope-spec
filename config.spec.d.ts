@@ -206,6 +206,19 @@ export interface Geography {
    * Configuration for the shapefile containing the geometries of disputed areas
    */
   "disputes_file"?: DisputesFile;
+
+  /**
+   * Configuration for the root location, which represents all locations
+   *
+   * default:
+   * ```json
+   * {
+   *   "id": 0,
+   *   "name": "All"
+   * }
+   * ```
+   */
+  "root_location"?: LocationMetadata;
 }
 
 /**
@@ -294,6 +307,21 @@ export interface DisputesFieldnames extends AdminFieldnames {
    * disputed area (as a comma-separated list)
    */
   "claimants": string;
+}
+
+/**
+ * Metadata for a location
+ */
+export interface LocationMetadata {
+  /**
+   * Unique ID of the location
+   */
+  "id": number;
+
+  /**
+   * Name of the location
+   */
+  "name": string;
 }
 
 /**
