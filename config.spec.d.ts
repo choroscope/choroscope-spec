@@ -158,6 +158,11 @@ export interface DefaultDisplay {
 export type AdminLevel = 0 | 1 | 2;
 
 /**
+ * Represents a unique identifier for locations
+ */
+export type LocationID = number | string;
+
+/**
  * Configuration related to geographical features
  */
 export interface Geography {
@@ -167,7 +172,7 @@ export interface Geography {
    * We include only these admin0 locations and only admin1 and admin2 locations that are their
    * descendants. If this field is not specified, no filtering will occur.
    */
-  "admin0_locations"?: number[];
+  "admin0_locations"?: LocationID[];
 
   /**
    * List of location IDs for locations with no descendants
@@ -177,17 +182,17 @@ export interface Geography {
    * list is used to specify deviations from the norm, that is, branches of the location hierarchy
    * that do not extend all the way down to the max admin level.
    */
-  "no_descendants"?: number[];
+  "no_descendants"?: LocationID[];
 
   /**
    * List of location IDs for which no raster data is available
    */
-  "exclude_raster"?: number[];
+  "exclude_raster"?: LocationID[];
 
   /**
    * List of location IDs for which no aggregate data is available
    */
-  "exclude_aggregate"?: number[];
+  "exclude_aggregate"?: LocationID[];
 
   /**
    * Show territorial disputes between countries? If `true`, a file containing the geometries of the
@@ -316,7 +321,7 @@ export interface LocationMetadata {
   /**
    * Unique ID of the location
    */
-  "id": number;
+  "id": LocationID;
 
   /**
    * Name of the location
