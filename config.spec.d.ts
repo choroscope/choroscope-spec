@@ -354,6 +354,9 @@ export interface Schema {
    */
   "filepath_template_raster"?: string;
 
+  /**
+   * Disable visualization of geo or aggregate data for this schema?
+   */
   "disabled_mode"?: "geo" | "aggregate";
 
   /**
