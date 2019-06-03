@@ -355,6 +355,11 @@ export interface Schema {
   "filepath_template_raster"?: string;
 
   /**
+   * Disable visualization of geo or aggregate data for this schema?
+   */
+  "disable_mode"?: "geo" | "aggregate";
+
+  /**
    * Template representing the title text to display to the user when this schema is active
    *
    * May optionally contain wildcards that reference dimension names; in that case the wildcard
