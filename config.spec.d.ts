@@ -357,7 +357,7 @@ export interface Schema {
   /**
    * Disable visualization of geo or aggregate data for this schema?
    */
-  "disabled_mode"?: "geo" | "aggregate";
+  "disable_mode"?: "geo" | "aggregate";
 
   /**
    * Template representing the title text to display to the user when this schema is active
