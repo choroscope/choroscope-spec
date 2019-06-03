@@ -15,7 +15,8 @@
     "url": "git+https://github.com/choroscope/choroscope-spec.git"
   },
   "files": [
-    "config.spec.d.ts"
+    "config.spec.d.ts",
+    "tsconfig.json"
   ],
   "author": "David Schneider <davschne@gmail.com> (github.com/davschne)",
   "contributors": [
