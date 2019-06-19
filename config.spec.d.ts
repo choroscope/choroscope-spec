@@ -158,6 +158,11 @@ export interface DefaultDisplay {
 export type AdminLevel = 0 | 1 | 2;
 
 /**
+ * Represents a unique identifier for locations
+ */
+export type LocationID = number | string;
+
+/**
  * Configuration related to geographical features
  */
 export interface Geography {
@@ -167,7 +172,7 @@ export interface Geography {
    * We include only these admin0 locations and only admin1 and admin2 locations that are their
    * descendants. If this field is not specified, no filtering will occur.
    */
-  "admin0_locations"?: number[];
+  "admin0_locations"?: LocationID[];
 
   /**
    * List of location IDs for locations with no descendants
@@ -177,17 +182,151 @@ export interface Geography {
    * list is used to specify deviations from the norm, that is, branches of the location hierarchy
    * that do not extend all the way down to the max admin level.
    */
-  "no_descendants"?: number[];
+  "no_descendants"?: LocationID[];
 
   /**
    * List of location IDs for which no raster data is available
    */
-  "exclude_raster"?: number[];
+  "exclude_raster"?: LocationID[];
 
   /**
    * List of location IDs for which no aggregate data is available
    */
-  "exclude_aggregate"?: number[];
+  "exclude_aggregate"?: LocationID[];
+
+  /**
+   * Show territorial disputes between countries? If `true`, a file containing the geometries of the
+   * disputed areas must be provided.
+   *
+   * default: true
+   */
+  "territorial_disputes"?: boolean;
+
+  /**
+   * Configuration for the shapefiles containing the geometries of administrative units
+   */
+  "admin_files"?: AdminFiles;
+
+  /**
+   * Configuration for the shapefile containing the geometries of disputed areas
+   */
+  "disputes_file"?: DisputesFile;
+
+  /**
+   * Configuration for the root location, which represents all locations
+   *
+   * default:
+   * ```json
+   * {
+   *   "id": 0,
+   *   "name": "All"
+   * }
+   * ```
+   */
+  "root_location"?: LocationMetadata;
+}
+
+/**
+ * Configuration for the shapefiles containing the geometries of administrative units
+ */
+export interface AdminFiles {
+  /**
+   * Relative paths to the administrative shapefiles.
+   *
+   * The index in the array corresponds to the admin level, so the first item represents admin0, the
+   * second admin1, etc.
+   *
+   * default:
+   * ```json
+   * ["shapefiles/admin{N}/admin{N}.shp", ...]
+   * ```
+   * where {N} represents each admin level from 0 up to the max admin level
+   */
+  "filepaths"?: string[];
+
+  /**
+   * Names of the metadata fields for each feature in the administrative shapefiles
+   *
+   * The index in the array corresponds to the admin level, so the first item represents fields for
+   * admin0, the second fields for admin1, etc.
+   *
+   * default:
+   * ```json
+   * [
+   *   { "id": "ADM{N}_CODE", "name": "ADM{N}_NAME" },
+   *   ...
+   * ]
+   * ```
+   * where {N} represents each admin level from 0 up to the max admin level
+   */
+  "fieldnames"?: AdminFieldnames[];
+}
+
+/**
+ * Configuration for the shapefile containing the geometries of disputed areas
+ */
+export interface DisputesFile {
+  /**
+   * Relative path to the disputes shapefile
+   *
+   * default: "shapefiles/disputes/disputes.shp"
+   */
+  "filepath"?: string;
+
+  /**
+   * Names of the metadata fields for each feature in the disputes shapefile
+   *
+   * default:
+   * ```json
+   * {
+   *   "id": "ADM0_CODE",
+   *   "name": "ADM0_NAME",
+   *   "claimants": "claimants",
+   * }
+   * ```
+   */
+  "fieldnames"?: DisputesFieldnames;
+}
+
+/**
+ * Names of the metadata fields for each feature in the shapefiles containing administrative units
+ */
+export interface AdminFieldnames {
+  /**
+   * Name of the field containing the unique ID of the feature
+   */
+  "id": string;
+
+  /**
+   * Name of the field containing the name of the feature
+   */
+  "name": string;
+}
+
+/**
+ * Names of the metadata fields for each feature in the shapefile containing disputed territories
+ */
+export interface DisputesFieldnames extends AdminFieldnames {
+  /**
+   * Name of the field containing the unique IDs of the countries (admin0 locations) that claim the
+   * disputed area (as a comma-separated list)
+   */
+  "claimants": string;
+}
+
+/**
+ * Metadata for a location
+ */
+export interface LocationMetadata {
+  /**
+   * Unique ID of the location
+   */
+  "id": LocationID;
+
+  /**
+   * Name of the location
+   */
+  "name": string;
 }
 
 /**
