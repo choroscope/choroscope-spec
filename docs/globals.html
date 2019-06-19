@@ -68,6 +68,8 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface"><a href="interfaces/adminfieldnames.html" class="tsd-kind-icon">Admin<wbr>Fieldnames</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/adminfiles.html" class="tsd-kind-icon">Admin<wbr>Files</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/area.html" class="tsd-kind-icon">Area</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/barchart.html" class="tsd-kind-icon">Bar<wbr>Chart</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/colorscale.html" class="tsd-kind-icon">Color<wbr>Scale</a></li>
@@ -80,8 +82,11 @@
 								<li class="tsd-kind-interface"><a href="interfaces/defaultdisplay.html" class="tsd-kind-icon">Default<wbr>Display</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/dimension.html" class="tsd-kind-icon">Dimension</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/dimensionfilter.html" class="tsd-kind-icon">Dimension<wbr>Filter</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/disputesfieldnames.html" class="tsd-kind-icon">Disputes<wbr>Fieldnames</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/disputesfile.html" class="tsd-kind-icon">Disputes<wbr>File</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/geography.html" class="tsd-kind-icon">Geography</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/linechart.html" class="tsd-kind-icon">Line<wbr>Chart</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/locationmetadata.html" class="tsd-kind-icon">Location<wbr>Metadata</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/option.html" class="tsd-kind-icon">Option</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/scaling.html" class="tsd-kind-icon">Scaling</a></li>
 								<li class="tsd-kind-interface tsd-is-not-exported"><a href="interfaces/scalingbyadmin.html" class="tsd-kind-icon">Scaling<wbr>ByAdmin</a></li>
@@ -95,6 +100,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias"><a href="globals.html#adminlevel" class="tsd-kind-icon">Admin<wbr>Level</a></li>
 								<li class="tsd-kind-type-alias"><a href="globals.html#infodisplay" class="tsd-kind-icon">Info<wbr>Display</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#locationid" class="tsd-kind-icon">LocationID</a></li>
 							</ul>
 						</section>
 					</div>
@@ -108,7 +114,7 @@
 					<div class="tsd-signature tsd-kind-icon">Admin<wbr>Level<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/04da575/config.spec.d.ts#L158">config.spec.d.ts:158</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L158">config.spec.d.ts:158</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -123,7 +129,7 @@
 					<div class="tsd-signature tsd-kind-icon">Info<wbr>Display<span class="tsd-signature-symbol">:</span> <a href="interfaces/barchart.html" class="tsd-signature-type">BarChart</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/linechart.html" class="tsd-signature-type">LineChart</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/valuesdisplay.html" class="tsd-signature-type">ValuesDisplay</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/04da575/config.spec.d.ts#L411">config.spec.d.ts:411</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L550">config.spec.d.ts:550</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -134,6 +140,21 @@
 							showing supplemental data about the selected pixel (in &quot;geospatial&quot; mode) or geographic feature
 							(in &quot;aggregate&quot; mode). This Info Box can render one or more display components, defined by the
 						configuration object(s) provided.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="locationid" class="tsd-anchor"></a>
+					<h3>LocationID</h3>
+					<div class="tsd-signature tsd-kind-icon">LocationID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L163">config.spec.d.ts:163</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Represents a unique identifier for locations</p>
+						</div>
 					</div>
 				</section>
 			</section>
@@ -148,6 +169,12 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/adminfieldnames.html" class="tsd-kind-icon">Admin<wbr>Fieldnames</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/adminfiles.html" class="tsd-kind-icon">Admin<wbr>Files</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/area.html" class="tsd-kind-icon">Area</a>
 					</li>
@@ -185,10 +212,19 @@
 						<a href="interfaces/dimensionfilter.html" class="tsd-kind-icon">Dimension<wbr>Filter</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/disputesfieldnames.html" class="tsd-kind-icon">Disputes<wbr>Fieldnames</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/disputesfile.html" class="tsd-kind-icon">Disputes<wbr>File</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/geography.html" class="tsd-kind-icon">Geography</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/linechart.html" class="tsd-kind-icon">Line<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/locationmetadata.html" class="tsd-kind-icon">Location<wbr>Metadata</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/option.html" class="tsd-kind-icon">Option</a>
@@ -213,6 +249,9 @@
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#infodisplay" class="tsd-kind-icon">Info<wbr>Display</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#locationid" class="tsd-kind-icon">LocationID</a>
 					</li>
 				</ul>
 			</nav>

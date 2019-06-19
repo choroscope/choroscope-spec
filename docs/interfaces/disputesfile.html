@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ColorScale | Choroscope Theme Specification</title>
+	<title>DisputesFile | Choroscope Theme Specification</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="colorscale.html">ColorScale</a>
+					<a href="disputesfile.html">DisputesFile</a>
 				</li>
 			</ul>
-			<h1>Interface ColorScale</h1>
+			<h1>Interface DisputesFile</h1>
 		</div>
 	</div>
 </header>
@@ -67,28 +67,15 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Rules for colorizing map features according to their associated data values</p>
+						<p>Configuration for the shapefile containing the geometries of disputed areas</p>
 					</div>
-					<p>The application can colorize the data displayed on the map using a variety of &quot;color scales&quot;
-						for a given theme. Each scale specifies a list of reference colors and the data values to which
-						those colors should be applied. Values in between reference values will be colorized with an
-					interpolated color.</p>
-					<p>It&#39;s also possible to specify one or more fixed values, i.e. &quot;sentinel values&quot;. If a data value
-						matches a sentinel value exactly, the designated color will be applied. No interpolation is done
-					for values that fall between the specified sentinel values.</p>
-					<p>Note that each <code>ColorScale</code> object must contain a non-empty array for either <code>scale</code> or
-						<code>sentinel_values</code>. It&#39;s also possible to specify both. In that case, the application will first
-						match values against sentinel values. If no matching value is found, it will then colorize
-					according to the <code>scale</code>.</p>
-					<p>As with schemas, one (and only one) color scale may be active at a given time. We specify when a
-					color scale is active with the <code>conditions</code> property.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ColorScale</span>
+						<span class="target">DisputesFile</span>
 					</li>
 				</ul>
 			</section>
@@ -99,14 +86,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorscale.html#conditions" class="tsd-kind-icon">conditions</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorscale.html#custom_legend" class="tsd-kind-icon">custom_<wbr>legend</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorscale.html#legend_distribution" class="tsd-kind-icon">legend_<wbr>distribution</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorscale.html#legend_label" class="tsd-kind-icon">legend_<wbr>label</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorscale.html#scale" class="tsd-kind-icon">scale</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorscale.html#scaling_aggregate" class="tsd-kind-icon">scaling_<wbr>aggregate</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorscale.html#scaling_geospatial" class="tsd-kind-icon">scaling_<wbr>geospatial</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorscale.html#sentinel_values" class="tsd-kind-icon">sentinel_<wbr>values</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="disputesfile.html#fieldnames" class="tsd-kind-icon">fieldnames</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="disputesfile.html#filepath" class="tsd-kind-icon">filepath</a></li>
 							</ul>
 						</section>
 					</div>
@@ -115,130 +96,40 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="conditions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> conditions</h3>
-					<div class="tsd-signature tsd-kind-icon">conditions<span class="tsd-signature-symbol">:</span> <a href="conditions.html" class="tsd-signature-type">Conditions</a></div>
+					<a name="fieldnames" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fieldnames</h3>
+					<div class="tsd-signature tsd-kind-icon">fieldnames<span class="tsd-signature-symbol">:</span> <a href="disputesfieldnames.html" class="tsd-signature-type">DisputesFieldnames</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L763">config.spec.d.ts:763</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L288">config.spec.d.ts:288</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p><a href="conditions.html">Conditions</a> object specifying when this color scale will be active</p>
+							<p>Names of the metadata fields for each feature in the disputes shapefile</p>
 						</div>
-						<p>If no conditions are specified, the color scale will always be active.</p>
+						<p>default:</p>
+						<pre><code class="language-json">{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ADM0_CODE"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ADM0_NAME"</span>,
+  <span class="hljs-attr">"claimants"</span>: <span class="hljs-string">"claimants"</span>,
+}</code></pre>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="custom_legend" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> custom_<wbr>legend</h3>
-					<div class="tsd-signature tsd-kind-icon">custom_<wbr>legend<span class="tsd-signature-symbol">:</span> <a href="customlegend.html" class="tsd-signature-type">CustomLegend</a></div>
+					<a name="filepath" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> filepath</h3>
+					<div class="tsd-signature tsd-kind-icon">filepath<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L808">config.spec.d.ts:808</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L274">config.spec.d.ts:274</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Custom SVG (Scalable Vector Graphics) element to be used in place of the usual legend</p>
+							<p>Relative path to the disputes shapefile</p>
 						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="legend_distribution" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> legend_<wbr>distribution</h3>
-					<div class="tsd-signature tsd-kind-icon">legend_<wbr>distribution<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"linear"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ln"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"log10"</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L803">config.spec.d.ts:803</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Distribution of stops in the legend</p>
-						</div>
-						<p>Typically this will be linear, but for certain types of data sets a logarithmic distribution,
-						which provides greater resolution at the lower end of the scale, may be more appropriate.</p>
-						<p>default: &quot;linear&quot;</p>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="legend_label" class="tsd-anchor"></a>
-					<h3>legend_<wbr>label</h3>
-					<div class="tsd-signature tsd-kind-icon">legend_<wbr>label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L768">config.spec.d.ts:768</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Text to display on the color scale legend when this color scale is active</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scale" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scale</h3>
-					<div class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">:</span> <a href="colorstop.html" class="tsd-signature-type">ColorStop</a><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L788">config.spec.d.ts:788</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Array of <a href="colorstop.html">ColorStop</a> objects used for colorizing via linear interpolation</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scaling_aggregate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scaling_<wbr>aggregate</h3>
-					<div class="tsd-signature tsd-kind-icon">scaling_<wbr>aggregate<span class="tsd-signature-symbol">:</span> <a href="scaling.html" class="tsd-signature-type">Scaling</a><span class="tsd-signature-symbol"> | </span><a href="scalingbyadmin.html" class="tsd-signature-type">ScalingByAdmin</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L778">config.spec.d.ts:778</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>This optional property defines how to scale the offsets in the color scale in aggregate mode.</p>
-						</div>
-						<p>Scaling can be defined separately for each administrative level, or the same scaling can be
-						used for all levels.</p>
-						<p>default: <code>{ &quot;factor&quot;: 1 }</code> (i.e. no scaling)</p>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scaling_geospatial" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scaling_<wbr>geospatial</h3>
-					<div class="tsd-signature tsd-kind-icon">scaling_<wbr>geospatial<span class="tsd-signature-symbol">:</span> <a href="scaling.html" class="tsd-signature-type">Scaling</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L783">config.spec.d.ts:783</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>This optional property defines how to scale the offsets in the color scale in geospatial mode.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="sentinel_values" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sentinel_<wbr>values</h3>
-					<div class="tsd-signature tsd-kind-icon">sentinel_<wbr>values<span class="tsd-signature-symbol">:</span> <a href="sentinelvalue.html" class="tsd-signature-type">SentinelValue</a><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/4886505/config.spec.d.ts#L793">config.spec.d.ts:793</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Array of <a href="sentinelvalue.html">SentinelValue</a> objects used for colorizing via exact match</p>
-						</div>
+						<p>default: &quot;shapefiles/disputes/disputes.shp&quot;</p>
 					</div>
 				</section>
 			</section>
@@ -265,39 +156,9 @@
 					<li class=" tsd-kind-interface">
 						<a href="barchart.html" class="tsd-kind-icon">Bar<wbr>Chart</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="colorscale.html" class="tsd-kind-icon">Color<wbr>Scale</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorscale.html#conditions" class="tsd-kind-icon">conditions</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorscale.html#custom_legend" class="tsd-kind-icon">custom_<wbr>legend</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorscale.html#legend_distribution" class="tsd-kind-icon">legend_<wbr>distribution</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorscale.html#legend_label" class="tsd-kind-icon">legend_<wbr>label</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorscale.html#scale" class="tsd-kind-icon">scale</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorscale.html#scaling_aggregate" class="tsd-kind-icon">scaling_<wbr>aggregate</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorscale.html#scaling_geospatial" class="tsd-kind-icon">scaling_<wbr>geospatial</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorscale.html#sentinel_values" class="tsd-kind-icon">sentinel_<wbr>values</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="colorstop.html" class="tsd-kind-icon">Color<wbr>Stop</a>
 					</li>
@@ -328,9 +189,21 @@
 					<li class=" tsd-kind-interface">
 						<a href="disputesfieldnames.html" class="tsd-kind-icon">Disputes<wbr>Fieldnames</a>
 					</li>
-					<li class=" tsd-kind-interface">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
 						<a href="disputesfile.html" class="tsd-kind-icon">Disputes<wbr>File</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="disputesfile.html#fieldnames" class="tsd-kind-icon">fieldnames</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="disputesfile.html#filepath" class="tsd-kind-icon">filepath</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="geography.html" class="tsd-kind-icon">Geography</a>
 					</li>
