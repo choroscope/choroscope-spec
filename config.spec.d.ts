@@ -71,11 +71,6 @@ export interface Config {
   "basemap_labels_url"?: string;
 
   /**
-   * Array of custom text pertaining to specified locations and their descendants.
-   */
-  "custom_text"?: CustomText[];
-
-  /**
    * Array of data dimensions used in the theme
    */
   "dimensions": Dimension[];
@@ -229,6 +224,11 @@ export interface Geography {
    * ```
    */
   "root_location"?: LocationMetadata;
+
+  /**
+   * Array of custom text pertaining to specified locations and their descendants.
+   */
+  "custom_text"?: CustomText[];
 }
 
 /**
