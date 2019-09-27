@@ -224,6 +224,11 @@ export interface Geography {
    * ```
    */
   "root_location"?: LocationMetadata;
+
+  /**
+   * Array of custom text pertaining to specified locations and their descendants.
+   */
+  "custom_text"?: CustomText[];
 }
 
 /**
@@ -327,6 +332,21 @@ export interface LocationMetadata {
    * Name of the location
    */
   "name": string;
+}
+
+/**
+ * Custom text to be displayed for specified locations and their respective descendants.
+ */
+export interface CustomText {
+  /**
+   * List of location IDs for which custom text will be displayed.
+   */
+  "locations": LocationID[];
+
+  /**
+   * Text to be displayed for each location and its descendants.
+   */
+  "text": string;
 }
 
 /**
