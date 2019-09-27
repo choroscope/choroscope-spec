@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DefaultDisplay | Choroscope Theme Specification</title>
+	<title>CustomText | Choroscope Theme Specification</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="defaultdisplay.html">DefaultDisplay</a>
+					<a href="customtext.html">CustomText</a>
 				</li>
 			</ul>
-			<h1>Interface DefaultDisplay</h1>
+			<h1>Interface CustomText</h1>
 		</div>
 	</div>
 </header>
@@ -67,7 +67,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Default settings to show in the application when the theme is first loaded</p>
+						<p>Custom text to be displayed for specified locations and their respective descendants.</p>
 					</div>
 				</div>
 			</section>
@@ -75,7 +75,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">DefaultDisplay</span>
+						<span class="target">CustomText</span>
 					</li>
 				</ul>
 			</section>
@@ -86,8 +86,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultdisplay.html#level" class="tsd-kind-icon">level</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultdisplay.html#mode" class="tsd-kind-icon">mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="customtext.html#locations" class="tsd-kind-icon">locations</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="customtext.html#text" class="tsd-kind-icon">text</a></li>
 							</ul>
 						</section>
 					</div>
@@ -96,32 +96,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="level" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> level</h3>
-					<div class="tsd-signature tsd-kind-icon">level<span class="tsd-signature-symbol">:</span> <a href="../globals.html#adminlevel" class="tsd-signature-type">AdminLevel</a></div>
+					<a name="locations" class="tsd-anchor"></a>
+					<h3>locations</h3>
+					<div class="tsd-signature tsd-kind-icon">locations<span class="tsd-signature-symbol">:</span> <a href="../globals.html#locationid" class="tsd-signature-type">LocationID</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/831aba8/config.spec.d.ts#L152">config.spec.d.ts:152</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/831aba8/config.spec.d.ts#L344">config.spec.d.ts:344</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Detail level to show when the theme is first loaded; default: 1</p>
+							<p>List of location IDs for which custom text will be displayed.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="mode" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> mode</h3>
-					<div class="tsd-signature tsd-kind-icon">mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"geo"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"aggregate"</span></div>
+					<a name="text" class="tsd-anchor"></a>
+					<h3>text</h3>
+					<div class="tsd-signature tsd-kind-icon">text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/831aba8/config.spec.d.ts#L147">config.spec.d.ts:147</a></li>
+							<li>Defined in <a href="https://github.com/choroscope/choroscope-spec/blob/831aba8/config.spec.d.ts#L349">config.spec.d.ts:349</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Display mode to show when the theme is first loaded; default: &quot;aggregate&quot;</p>
+							<p>Text to be displayed for each location and its descendants.</p>
 						</div>
 					</div>
 				</section>
@@ -167,27 +167,27 @@
 					<li class=" tsd-kind-interface">
 						<a href="customlegend.html" class="tsd-kind-icon">Custom<wbr>Legend</a>
 					</li>
-					<li class=" tsd-kind-interface">
-						<a href="customtext.html" class="tsd-kind-icon">Custom<wbr>Text</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="dataformat.html" class="tsd-kind-icon">Data<wbr>Format</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="defaultdisplay.html" class="tsd-kind-icon">Default<wbr>Display</a>
+						<a href="customtext.html" class="tsd-kind-icon">Custom<wbr>Text</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="defaultdisplay.html#level" class="tsd-kind-icon">level</a>
+								<a href="customtext.html#locations" class="tsd-kind-icon">locations</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="defaultdisplay.html#mode" class="tsd-kind-icon">mode</a>
+								<a href="customtext.html#text" class="tsd-kind-icon">text</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="dataformat.html" class="tsd-kind-icon">Data<wbr>Format</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="defaultdisplay.html" class="tsd-kind-icon">Default<wbr>Display</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="dimension.html" class="tsd-kind-icon">Dimension</a>
 					</li>
